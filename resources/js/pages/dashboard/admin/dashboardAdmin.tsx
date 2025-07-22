@@ -1,7 +1,17 @@
 import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
-import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
-import { Head } from '@inertiajs/react';
+import {
+    Card,
+    CardAction,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+  } from "@/components/ui/card"
+import { TrendingUp } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+
+
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -13,10 +23,30 @@ const breadcrumbs: BreadcrumbItem[] = [
 export default function DashboardAdmin() {
     return (
     <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4 overflow-x-auto">
-        <div className="grid auto-rows-min gap-4 md:grid-cols-4">
+        <div className="grid auto-rows-min gap-4 md:grid-cols-2 lg:grid-cols-4">
             <div className="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
-                Admin
+            <Card className="@container/card">
+                <CardHeader>
+                <CardDescription>Total Revenue</CardDescription>
+                <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+                    $1,250.00
+                </CardTitle>
+                <CardAction>
+                    <Badge variant="outline">
+                    <TrendingUp />
+                    +12.5%
+                    </Badge>
+                </CardAction>
+                </CardHeader>
+                <CardFooter className="flex-col items-start gap-1.5 text-sm">
+                <div className="line-clamp-1 flex gap-2 font-medium">
+                    Trending up this month <TrendingUp className="size-4" />
+                </div>
+                <div className="text-muted-foreground">
+                    Visitors for the last 6 months
+                </div>
+                </CardFooter>
+            </Card>
             </div>
             <div className="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                 <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />

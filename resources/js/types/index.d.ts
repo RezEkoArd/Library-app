@@ -1,4 +1,5 @@
 import { LucideIcon } from 'lucide-react';
+import { ElementType } from 'react';
 import type { Config } from 'ziggy-js';
 
 export interface Auth {
@@ -65,3 +66,10 @@ export interface PagePropsDataBuku extends Record<string, any>{
     categories: CategoryBuku[];
 }
   
+export interface CardDashboard {
+    cardDescription: string;
+    cardTitle: string;
+    cardAction?: ElementType | null
+    footerTitle:string;
+    footerDescription:string;
+}
