@@ -44,3 +44,24 @@ export interface User {
     updated_at: string;
     [key: string]: unknown; // This allows for additional properties...
 }
+
+
+export interface CategoryBuku {
+    id: string;
+    nama_kategori: string;
+    deskripsi: string;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface FlashMessage {
+    success?: string;
+    errorMessage?: string; 
+}
+
+
+export interface PagePropsDataBuku extends Record<string, any>{
+    flash: FlashMessage;
+    categories: CategoryBuku[];
+}
+  

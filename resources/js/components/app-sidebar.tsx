@@ -4,16 +4,8 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from '@/components/ui/sidebar';
 import { SharedData, type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { BarChart2, BookOpen, Folder, Home, LayoutGrid, Users } from 'lucide-react';
+import { BarChart2, BookCopy, BookOpen, ChartNoAxesCombined, Coins, Folder, Handshake, Home, LayoutGrid, User2, Users } from 'lucide-react';
 import AppLogo from './app-logo';
-
-// const mainNavItems: NavItem[] = [
-//     {
-//         title: 'Dashboard',
-//         href: '/dashboard',
-//         icon: LayoutGrid,
-//     },
-// ];
 
 export function AppSidebar() {
     // const {isOpen} = useSidebar();
@@ -24,16 +16,25 @@ export function AppSidebar() {
 
     const adminLinks = [
         { href: route('dashboard'), title: 'Dashboard', icon: Home },
-        { href: route('dashboard'), title: 'Manajemen User', icon: Users },
+        { href: route('data-buku'), title: 'Data Buku', icon: BookCopy }, // Lihat buku, tambah buku
+        { href: route('dashboard'), title: 'Anggota', icon: User2 },  // Lihat Anggota, tambah Anggota
+        { href: route('dashboard'), title: 'Peminjaman', icon: Handshake },  // Lihat Peminjaman, tambah Peminjaman
+        { href: route('dashboard'), title: 'Transaksi', icon: Coins },
+
+
     ];
     const guruLink = [
         { href: route('dashboard'), title: 'Dashboard', icon: Home },
-        { href: route('dashboard'), title: 'Kelas Saya', icon: BookOpen }
+        { href: route('dashboard'), title: 'Data Buku', icon: BookOpen },
+        { href: route('dashboard'), title: 'Peminjaman', icon: Handshake },
+        { href: route('dashboard'), title: 'Laporan', icon: ChartNoAxesCombined },
     ]
 
     const siswaLink = [
         { href: route('dashboard'), title: 'Dashboard', icon: Home },
-        { href: route('dashboard'), title: 'Lihat Nilai', icon: BarChart2 },
+        { href: route('dashboard'), title: 'Data Buku', icon: BookOpen },
+        { href: route('dashboard'), title: 'Peminjaman', icon: Handshake },
+        { href: route('dashboard'), title: 'Laporan', icon: ChartNoAxesCombined },
     ]
 
     let navLinks: NavItem[] = [];

@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KategoriBukuController;
+use App\Models\Kategori_buku;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -28,6 +30,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
+
+
+    // Kategory buku
+    Route::get('/data-buku', [KategoriBukuController::class, 'index'])->name('data-buku');
+    Route::post('/data-buku/category', [KategoriBukuController::class, 'store'])->name('data-buku.store');
 });
 
 require __DIR__.'/settings.php';
