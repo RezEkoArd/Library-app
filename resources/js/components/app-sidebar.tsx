@@ -1,14 +1,12 @@
-import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from '@/components/ui/sidebar';
 import { SharedData, type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { BarChart2, BookCopy, BookOpen, ChartNoAxesCombined, Coins, Folder, Handshake, Home, LayoutGrid, User2, Users } from 'lucide-react';
+import {  BookCopy, BookOpen, ChartNoAxesCombined, Coins, Folder, Handshake, Home, LayoutGrid, User2, Users } from 'lucide-react';
 import AppLogo from './app-logo';
 
 export function AppSidebar() {
-    // const {isOpen} = useSidebar();
 
     //1. Ambil data 'auth' dari props yang dibagikan (shared data)
     const { auth } = usePage<SharedData>().props;
