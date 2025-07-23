@@ -3,7 +3,12 @@
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table"
-import { MoreHorizontal } from "lucide-react";
+import { MoreHorizontal, Trash2 } from "lucide-react";
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import { router, useForm } from "@inertiajs/react";
 
 export type Category = {
     id: string,
@@ -49,8 +54,24 @@ export const columns: ColumnDef<Category>[] = [
         header: "Actions",
         id: "actions",
         cell: ({ row }) => {
-          const payment = row.original
-     
+          const categori = row.original
+          const {processing, delete:destroy} = useForm();
+
+          const handleEdit = () => {
+           // Redirect ke halaman edit
+            router.visit(`dashboard`);
+          }
+
+          const handleDelete = (id: string, e: React.MouseEvent<HTMLDivElement>) => {
+            e.preventDefault();
+            if (confirm(`Do you want to delete - ${id}. ${id}`)) {
+              destroy(route('data-buku.destroy', id));
+              console.log('deleted', id)
+          }
+
+          }
+   
+            
           return (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -60,19 +81,14 @@ export const columns: ColumnDef<Category>[] = [
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem>Edit</DropdownMenuItem>
-                <DropdownMenuItem className=" font-light text-sm text-black hover:bg-red-500"
-                  onClick={() => navigator.clipboard.writeText(payment.id)}
-                >
+                {/* <DropdownMenuItem>Edit</DropdownMenuItem> */}
+                <DropdownMenuItem onClick={(e) => handleDelete(categori.id, e)}>
                   Delete
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                {/* <DropdownMenuItem>View customer</DropdownMenuItem> */}
-                {/* <DropdownMenuItem>View payment details</DropdownMenuItem> */}
               </DropdownMenuContent>
             </DropdownMenu>
           )
         },
     }
-  ]
-  
+]

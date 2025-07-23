@@ -83,6 +83,15 @@ class KategoriBukuController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // dd($id);
+        $category = Kategori_buku::find($id);
+
+        if(!$category) {
+            return back()->withErrors(['errorMessage' => 'Category no found.']);
+        }
+
+        $category->delete();
+        return redirect()->back()->with('success', 'Category berhasil dihapus.');
+
     }
 }

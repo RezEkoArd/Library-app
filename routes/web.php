@@ -35,6 +35,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Kategory buku
     Route::get('/data-buku', [KategoriBukuController::class, 'index'])->name('data-buku');
     Route::post('/data-buku/category', [KategoriBukuController::class, 'store'])->name('data-buku.store');
+    Route::delete('/data-buku/category/{id}', [KategoriBukuController::class, 'destroy'])->name('data-buku.destroy');
 });
 
 require __DIR__.'/settings.php';

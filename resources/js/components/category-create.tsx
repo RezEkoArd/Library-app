@@ -23,7 +23,6 @@ const CreateCategory = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log(data)
         post('/data-buku/category', {
             preserveScroll: true,
             onSuccess: () => reset('nama_kategori', 'deskripsi'),

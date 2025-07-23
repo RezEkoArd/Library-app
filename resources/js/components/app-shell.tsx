@@ -17,7 +17,8 @@ export function AppShell({ children, variant = 'header' }: AppShellProps) {
         </div>;
     }
 
-    return <SidebarProvider defaultOpen={isOpen}>{children}
+    return <SidebarProvider defaultOpen={isOpen}>
+        {children}
         <Toaster richColors position='top-center' />
     </SidebarProvider>;
 }

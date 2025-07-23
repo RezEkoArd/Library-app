@@ -1,15 +1,10 @@
 import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
 import { type BreadcrumbItem } from '@/types';
-import {
-    Card,
-    CardAction,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-  } from "@/components/ui/card"
-import { TrendingUp } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
+import { BookCopy, BookDown, FolderInput, Users2 } from 'lucide-react';
+import { CardDashboard } from '@/components/card-dashboard';
+import { DashboardPieChart } from '@/components/dashboard-piechart';
+import DashboardAreaChart from '@/components/dashboard-areachart';
+import DashboardCardList from '@/components/dashboard-cardlist';
 
 
 
@@ -22,45 +17,56 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function DashboardAdmin() {
     return (
-    <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4 overflow-x-auto">
+        <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4 overflow-x-auto">
         <div className="grid auto-rows-min gap-4 md:grid-cols-2 lg:grid-cols-4">
             <div className="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-            <Card className="@container/card">
-                <CardHeader>
-                <CardDescription>Total Revenue</CardDescription>
-                <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-                    $1,250.00
-                </CardTitle>
-                <CardAction>
-                    <Badge variant="outline">
-                    <TrendingUp />
-                    +12.5%
-                    </Badge>
-                </CardAction>
-                </CardHeader>
-                <CardFooter className="flex-col items-start gap-1.5 text-sm">
-                <div className="line-clamp-1 flex gap-2 font-medium">
-                    Trending up this month <TrendingUp className="size-4" />
-                </div>
-                <div className="text-muted-foreground">
-                    Visitors for the last 6 months
-                </div>
-                </CardFooter>
-            </Card>
+                <CardDashboard
+                    cardTitle="1000"
+                    cardDescription="Total Koleksi Buku"
+                    cardAction={BookCopy} 
+                    footerTitle="+15 buku baru"
+                    footerDescription="ditambahkan bulan ini"
+                />
             </div>
             <div className="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
+                <CardDashboard
+                    cardTitle="100"
+                    cardDescription="Jumlah Anggota Aktif"
+                    cardAction={Users2} 
+                    footerTitle="+5 anggota baru"
+                    footerDescription="bergabung minggu ini"
+                />
             </div>
             <div className="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
+            <CardDashboard
+                    cardTitle="30"
+                    cardDescription="Buku Sedang Dipinjam"
+                    cardAction={FolderInput} 
+                    footerTitle="+3 dari kemarin"
+                    footerDescription="Total buku yang beredar"
+                />
             </div>
             <div className="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
+            <CardDashboard
+                    cardTitle="12"
+                    cardDescription="Dikembalikan"
+                    cardAction={BookDown} 
+                    footerTitle="1 buku terlambat"
+                    footerDescription="dari total pengembalian hari ini"
+                />
             </div>
         </div>
-        <div className="relative min-h-[100vh] flex-1 overflow-hidden rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border">
-            <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
+        <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-4 gap-4">
+        <div className="relative bg-primary-foreground p-4 rounded-lg">
+            <DashboardPieChart />
         </div>
-    </div>
+        <div className="relative bg-primary-foreground p-4 rounded-lg lg:col-span-2 xl:col-span-1 2xl:col-span-2">
+            <DashboardAreaChart />
+        </div>
+        <div className="relative bg-primary-foreground p-4 rounded-lg">
+            <DashboardCardList title="Transaksi Terbaru"/>
+        </div>
+    </div>             
+</div>
     );
 }

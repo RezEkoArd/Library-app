@@ -57,8 +57,7 @@ export default function DashboardSiswa() {
             <div className="relative bg-primary-foreground p-4 rounded-lg">
                 <DashboardCardList title="Buku Paling Populer"/>
             </div>
-        </div>
-                
+        </div>             
     </div>
     );
 }

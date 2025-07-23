@@ -5,17 +5,13 @@ import { Head, usePage } from '@inertiajs/react';
 import { useEffect } from 'react';
 import { toast } from 'sonner';
 import { DataTable } from './category-table/data-table';
-import { columns } from './category-table/column';
 import {
     Sheet,
-    SheetContent,
-    SheetDescription,
-    SheetHeader,
-    SheetTitle,
     SheetTrigger,
   } from "@/components/ui/sheet"
 import { Button } from '@/components/ui/button';
 import CreateCategory from '@/components/category-create';
+import { columns } from './category-table/column';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
