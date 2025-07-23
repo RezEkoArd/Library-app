@@ -1,11 +1,12 @@
-import { CardDashboard } from '@/components/card-dashboard';
 import { BookCopy, BookDown, FolderInput, Users2 } from 'lucide-react';
+import { CardDashboard } from '@/components/card-dashboard';
 import { DashboardPieChart } from '@/components/dashboard-piechart';
 import DashboardAreaChart from '@/components/dashboard-areachart';
 import DashboardCardList from '@/components/dashboard-cardlist';
 
 
-export default function DashboardGuru() {
+
+export default function DashboardSiswa() {
     return (
         <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4 overflow-x-auto">
             <div className="grid auto-rows-min gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -54,9 +55,10 @@ export default function DashboardGuru() {
                 <DashboardAreaChart />
             </div>
             <div className="relative bg-primary-foreground p-4 rounded-lg">
-                <DashboardCardList title="Popular Content"/>
+                <DashboardCardList title="Buku Paling Populer"/>
             </div>
         </div>
+                
     </div>
     );
 }

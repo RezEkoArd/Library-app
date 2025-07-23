@@ -19,52 +19,52 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 
-export const description = "A donut chart with text"
+export const description = "Distribusi Buku Berdasarkan Kategori"
 
 const chartData = [
-  { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
-  { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
-  { browser: "firefox", visitors: 287, fill: "var(--color-firefox)" },
-  { browser: "edge", visitors: 173, fill: "var(--color-edge)" },
-  { browser: "other", visitors: 190, fill: "var(--color-other)" },
+  { category: "Fiksi", total: 120, fill: "var(--chart-1)" },
+  { category: "Non-Fiksi", total: 80, fill: "var(--chart-2)" },
+  { category: "Sains", total: 65, fill: "var(--chart-3)" },
+  { category: "Teknologi", total: 100, fill: "var(--chart-4)" },
+  { category: "Lainnya", total: 30, fill: "var(--chart-5)" },
 ]
 
 const chartConfig = {
-  visitors: {
-    label: "Visitors",
+  total: {
+    label: "Jumlah Buku",
   },
-  chrome: {
-    label: "Chrome",
+  fiksi: {
+    label: "Fiksi",
     color: "var(--chart-1)",
   },
-  safari: {
-    label: "Safari",
+  "non-fiksi": {
+    label: "Non-Fiksi",
     color: "var(--chart-2)",
   },
-  firefox: {
-    label: "Firefox",
+  sains: {
+    label: "Sains",
     color: "var(--chart-3)",
   },
-  edge: {
-    label: "Edge",
+  teknologi: {
+    label: "Teknologi",
     color: "var(--chart-4)",
   },
-  other: {
-    label: "Other",
+  lainnya: {
+    label: "Lainnya",
     color: "var(--chart-5)",
   },
 } satisfies ChartConfig
 
 export function DashboardPieChart() {
-  const totalVisitors = React.useMemo(() => {
-    return chartData.reduce((acc, curr) => acc + curr.visitors, 0)
+  const totalBooks = React.useMemo(() => {
+    return chartData.reduce((acc, curr) => acc + curr.total, 0)
   }, [])
 
   return (
     <Card className="flex flex-col">
       <CardHeader className="items-center pb-0">
-        <CardTitle>Pie Chart - Donut with Text</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+        <CardTitle>Distribusi Buku per Kategori</CardTitle>
+        <CardDescription>Statistik per Juli 2025</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <ChartContainer
@@ -78,8 +78,8 @@ export function DashboardPieChart() {
             />
             <Pie
               data={chartData}
-              dataKey="visitors"
-              nameKey="browser"
+              dataKey="total"
+              nameKey="category"
               innerRadius={60}
               strokeWidth={5}
             >
@@ -98,14 +98,14 @@ export function DashboardPieChart() {
                           y={viewBox.cy}
                           className="fill-foreground text-3xl font-bold"
                         >
-                          {totalVisitors.toLocaleString()}
+                          {totalBooks.toLocaleString()}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) + 24}
                           className="fill-muted-foreground"
                         >
-                          Visitors
+                          Buku
                         </tspan>
                       </text>
                     )
@@ -118,10 +118,10 @@ export function DashboardPieChart() {
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
         <div className="flex items-center gap-2 leading-none font-medium">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+          Tren naik 5.2% bulan ini <TrendingUp className="h-4 w-4" />
         </div>
         <div className="text-muted-foreground leading-none">
-          Showing total visitors for the last 6 months
+          Menampilkan jumlah buku dari semua kategori
         </div>
       </CardFooter>
     </Card>

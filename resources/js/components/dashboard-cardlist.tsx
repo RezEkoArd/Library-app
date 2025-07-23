@@ -3,117 +3,116 @@ import { Badge } from "./ui/badge";
 
 
 const popularContent = [
-    {
-      id: 1,
-      title: "JavaScript Tutorial",
-      badge: "Coding",
-      image:
-        "https://images.pexels.com/photos/3861964/pexels-photo-3861964.jpeg?auto=compress&cs=tinysrgb&w=800",
-      count: 4300,
-    },
-    {
-      id: 2,
-      title: "Tech Trends 2025",
-      badge: "Tech",
-      image:
-        "https://images.pexels.com/photos/1714208/pexels-photo-1714208.jpeg?auto=compress&cs=tinysrgb&w=800",
-      count: 3200,
-    },
-    {
-      id: 3,
-      title: "The Future of AI",
-      badge: "AI",
-      image:
-        "https://images.pexels.com/photos/2007647/pexels-photo-2007647.jpeg?auto=compress&cs=tinysrgb&w=800",
-      count: 2400,
-    },
-    {
-      id: 4,
-      title: "React Hooks Explained",
-      badge: "Coding",
-      image:
-        "https://images.pexels.com/photos/943096/pexels-photo-943096.jpeg?auto=compress&cs=tinysrgb&w=800",
-      count: 1500,
-    },
-    {
-      id: 5,
-      title: "Image Generation with AI",
-      badge: "AI",
-      image:
-        "https://images.pexels.com/photos/3094799/pexels-photo-3094799.jpeg?auto=compress&cs=tinysrgb&w=800",
-      count: 1200,
-    },
-  ];
-  
-  const latestTransactions = [
-    {
-      id: 1,
-      title: "Subscription Renewal",
-      badge: "John Doe",
-      image:
-        "https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=800",
-      count: 1400,
-    },
-    {
-      id: 2,
-      title: "Payment for Services",
-      badge: "Jane Smith",
-      image:
-        "https://images.pexels.com/photos/4969918/pexels-photo-4969918.jpeg?auto=compress&cs=tinysrgb&w=800",
-      count: 2100,
-    },
-    {
-      id: 3,
-      title: "Subscription Renewal",
-      badge: "Michael Johnson",
-      image:
-        "https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=800",
-      count: 1300,
-    },
-    {
-      id: 4,
-      title: "Payment for Services",
-      badge: "Lily Adams",
-      image:
-        "https://images.pexels.com/photos/712513/pexels-photo-712513.jpeg?auto=compress&cs=tinysrgb&w=800",
-      count: 2500,
-    },
-    {
-      id: 5,
-      title: "Subscription Renewal",
-      badge: "Sam Brown",
-      image:
-        "https://images.pexels.com/photos/1680175/pexels-photo-1680175.jpeg?auto=compress&cs=tinysrgb&w=800",
-      count: 1400,
-    },
-  ];
-  
-const DashboardCardList = ({title} : {title: string}) => {
+  {
+    id: 1,
+    title: "Laskar Pelangi",
+    badge: "Fiksi",
+    image:
+      "https://images.pexels.com/photos/5904935/pexels-photo-5904935.jpeg?auto=compress&cs=tinysrgb&w=800",
+    count: 430, // jumlah dipinjam
+  },
+  {
+    id: 2,
+    title: "Sapiens: A Brief History",
+    badge: "Sejarah",
+    image:
+      "https://images.pexels.com/photos/1053689/pexels-photo-1053689.jpeg?auto=compress&cs=tinysrgb&w=800",
+    count: 380,
+  },
+  {
+    id: 3,
+    title: "Atomic Habits",
+    badge: "Self Development",
+    image:
+      "https://images.pexels.com/photos/6947400/pexels-photo-6947400.jpeg?auto=compress&cs=tinysrgb&w=800",
+    count: 350,
+  },
+  {
+    id: 4,
+    title: "Clean Code",
+    badge: "Teknologi",
+    image:
+      "https://images.pexels.com/photos/5904936/pexels-photo-5904936.jpeg?auto=compress&cs=tinysrgb&w=800",
+    count: 310,
+  },
+  {
+    id: 5,
+    title: "Thinking, Fast and Slow",
+    badge: "Psikologi",
+    image:
+      "https://images.pexels.com/photos/5904934/pexels-photo-5904934.jpeg?auto=compress&cs=tinysrgb&w=800",
+    count: 290,
+  },
+];
 
-    // * untuk mengecek jika popular content menghasilkan data popular content jika tidak sebaliknya
+const latestTransactions = [
+  {
+    id: 1,
+    title: "Laskar Pelangi",
+    badge: "Dina Rahma",
+    image:
+      "https://images.pexels.com/photos/937481/pexels-photo-937481.jpeg?auto=compress&cs=tinysrgb&w=800",
+    count: 1, // jumlah pinjam (default 1)
+  },
+  {
+    id: 2,
+    title: "Atomic Habits",
+    badge: "Rafi Ananda",
+    image:
+      "https://images.pexels.com/photos/1996330/pexels-photo-1996330.jpeg?auto=compress&cs=tinysrgb&w=800",
+    count: 1,
+  },
+  {
+    id: 3,
+    title: "Clean Code",
+    badge: "Nur Aulia",
+    image:
+      "https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=800",
+    count: 1,
+  },
+  {
+    id: 4,
+    title: "Sapiens",
+    badge: "Bagas Mahendra",
+    image:
+      "https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=800",
+    count: 1,
+  },
+  {
+    id: 5,
+    title: "Thinking, Fast and Slow",
+    badge: "Siti Zahrani",
+    image:
+      "https://images.pexels.com/photos/712513/pexels-photo-712513.jpeg?auto=compress&cs=tinysrgb&w=800",
+    count: 1,
+  },
+];
 
-    const list = title === "Popular Content" ? popularContent : latestTransactions
+const DashboardCardList = ({ title }: { title: string }) => {
+  const list = title === "Buku Paling Populer" ? popularContent : latestTransactions;
   return (
     <div className="">
-        <h1 className="text-lg font-medium mb-6">{title}</h1>
-        <div className="flex flex-col gap-2">
-            {list.map(item => (
-                <Card key={item.id} className="flex-row items-center justify-between gap-4 p-4">
-                    <div className="w-12 h-12 rounded-sm relative overflow-hidden">
-                        <img src={item.image} alt={item.title} className="object-cover"/> 
-                    </div>
-                    <CardContent className="flex-1 p-0">
-                        <CardTitle className="text-sm font-medium">{item.title}</CardTitle>
-                        <Badge variant="outline">{item.badge}</Badge>
-                    </CardContent>
-                    <CardFooter className="p-0">
-                        {item.count/1000}
-                    </CardFooter>
-                </Card>
-            ))}
-        </div>
+      <h1 className="text-lg font-medium mb-6">{title}</h1>
+      <div className="flex flex-col gap-2">
+        {list.map((item) => (
+          <Card key={item.id} className="flex-row items-center justify-between gap-4 p-4">
+            <div className="w-12 h-12 rounded-sm relative overflow-hidden">
+              <img src={item.image} alt={item.title} className="object-cover w-full h-full" />
+            </div>
+            <CardContent className="flex-1 p-0">
+              <CardTitle className="text-sm font-medium">{item.title}</CardTitle>
+              <Badge variant="outline">{item.badge}</Badge>
+            </CardContent>
+            <CardFooter className="p-0 text-sm text-muted-foreground">
+              {title === "Buku Paling Populer"
+                ? `${item.count}x `
+                : `1 buku `}
+            </CardFooter>
+          </Card>
+        ))}
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default DashboardCardList
+export default DashboardCardList;

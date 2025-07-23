@@ -55,7 +55,7 @@ export default function DashboardSiswa() {
                 <DashboardAreaChart />
             </div>
             <div className="relative bg-primary-foreground p-4 rounded-lg">
-                <DashboardCardList title="Popular Content"/>
+                <DashboardCardList title="Terakhir Transaksi"/>
             </div>
         </div>
                 
