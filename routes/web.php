@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BukuController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KategoriBukuController;
 use App\Models\Kategori_buku;
@@ -12,11 +13,6 @@ Route::get('/', function () {
 })->name('home');
 
 // Dashboard
-
-//? ini untuk validate dashboard ke masing-masing role
-Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->middleware(['auth','verified'])
-    ->name('dashboard');
 
 //? ini untuk mencegah user ke halaman login jika sudah login
 Route::get('/dashboard', function() {
@@ -31,9 +27,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
 
+    // Buku
+    Route::get('/data-buku', [BukuController::class, 'index'])->name('data-buku');
+
 
     // Kategory buku
-    Route::get('/data-buku', [KategoriBukuController::class, 'index'])->name('data-buku');
+    // Route::get('/data-buku', [KategoriBukuController::class, 'index'])->name('data-buku');
     Route::post('/data-buku/category', [KategoriBukuController::class, 'store'])->name('data-buku.store');
     Route::delete('/data-buku/category/{id}', [KategoriBukuController::class, 'destroy'])->name('data-buku.destroy');
 });

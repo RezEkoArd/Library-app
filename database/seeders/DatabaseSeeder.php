@@ -17,7 +17,9 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             KategoriBukuSeeder::class,
+            BukuSeeder::class
         ]);
+        
 
         // User::factory()->create([
         //     'name' => 'Test User',

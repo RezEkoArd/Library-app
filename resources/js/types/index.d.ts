@@ -1,3 +1,4 @@
+import { Book } from '@/pages/data-buku/book-table/column';
 import { LucideIcon } from 'lucide-react';
 import { ElementType } from 'react';
 import type { Config } from 'ziggy-js';
@@ -64,6 +65,10 @@ export interface FlashMessage {
 export interface PagePropsDataBuku extends Record<string, any>{
     flash: FlashMessage;
     categories: CategoryBuku[];
+    books: Book[];
+    filters : {
+        search: string | null;
+    }
 }
   
 export interface CardDashboard {
