@@ -2,7 +2,7 @@ import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
 import AppLayout from '@/layouts/app-layout';
 import { PagePropsDataBuku, type BreadcrumbItem } from '@/types';
 import { Head, router, usePage } from '@inertiajs/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
 import { DataTable } from './category-table/data-table';
 import {
@@ -26,23 +26,41 @@ const breadcrumbs: BreadcrumbItem[] = [
 export default function DataBukuIndex() {
     const {books, categories,  flash, filters} = usePage<PagePropsDataBuku>().props;
 
-    // 1. Buat state untuk menyimpan nilai input pencarian
     const [search, setSearch] = useState(filters.search || '');
 
-    useEffect(() => {
-        // Url Tujuan
-        const url =  new URL(window.location.href);
-        url.searchParams.set('search', search);
+    const isInitialMount = useRef(true);
 
-        router.get(
-            url.pathname + url.search,
-            {},
-            {
-                preserveState: true, // Jaga state komponen (seperti scroll)
-                replace: true,       
+    useEffect(() => {
+        // BARU: Logika untuk melewati render pertama
+        if (isInitialMount.current) {
+            isInitialMount.current = false; // Set ke false agar tidak berjalan lagi di render berikutnya
+            return; // Hentikan eksekusi useEffect di render pertama
+        }
+
+        // Logika debounce (opsional tapi sangat disarankan)
+        const handler = setTimeout(() => {
+            // Hanya jalankan jika panjang karakter >= 3 atau input kosong
+            if (search.length >= 3 || search.length === 0) {
+                const url =  new URL(window.location.href);
+                url.searchParams.set('search', search);
+
+                router.get(
+                    url.pathname + url.search,
+                    {},
+                    {
+                        preserveState: true,
+                        replace: true,
+                    }
+                );
             }
-        );
-    }, [search]);
+        }, 300); // Beri jeda 300ms
+
+        // Cleanup function untuk membersihkan timeout
+        return () => {
+            clearTimeout(handler);
+        };
+
+    }, [search]); // Dependensi tetap pada 'search'
 
   useEffect(() => {
     if (flash.success) {
