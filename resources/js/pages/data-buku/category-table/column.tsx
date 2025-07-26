@@ -57,16 +57,11 @@ export const columns: ColumnDef<Category>[] = [
           const categori = row.original
           const {processing, delete:destroy} = useForm();
 
-          const handleEdit = () => {
-           // Redirect ke halaman edit
-            router.visit(`dashboard`);
-          }
-
           const handleDelete = (id: string, e: React.MouseEvent<HTMLDivElement>) => {
             e.preventDefault();
             if (confirm(`Do you want to delete - ${id}. ${id}`)) {
-              destroy(route('data-buku.destroy', id));
-              console.log('deleted', id)
+              destroy(route('data-kategori.destroy', id));
+              // console.log('deleted', id)
           }
 
           }

@@ -1,17 +1,9 @@
-" use client"
-    import {
-        SheetContent,
-        SheetDescription,
-        SheetHeader,
-        SheetTitle,
-    } from "@/components/ui/sheet"
+
+import AppLayout from '@/layouts/app-layout';
+import { PagePropsDataBuku, type BreadcrumbItem } from '@/types';
+import { Head, router, useForm, usePage } from '@inertiajs/react';
+
     import { Input } from "@/components/ui/input"
-import { Button } from "./ui/button"
-import { Label } from "./ui/label"
-import { useForm } from "@inertiajs/react"
-import InputError from "./input-error"
-import React from "react"
-import { Textarea } from "./ui/textarea"
 import {
     Select,
     SelectContent,
@@ -19,46 +11,49 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-  
-interface Category {
-    id: string;
-    nama_kategori: string;
-}
+import { Label } from '@/components/ui/label';
+import InputError from '@/components/input-error';
+import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
 
-interface CreateBookProps {
-    categories: Category[]; // Tambahkan prop categories
-}
+const breadcrumbs: BreadcrumbItem[] = [
+    {
+        title: 'Data buku',
+        href: '/databuku',
+    },
+];
+const EditBook = () => {
 
-const CreateBook: React.FC<CreateBookProps> = ({ categories }) => {
-    
-    const {data, setData, post, processing, errors,reset} = useForm({
-        kategori_id: '',
-        judul_buku: '',
-        isbn: '',
-        penulis: '',
-        penerbit: '',
-        tahun_terbit: '',
-        bahasa: '',
-        stok_total: '',
-        stok_tersedia: '',
-        deskripsi: '',
-    })
+    const {book, categories} = usePage<PagePropsDataBuku>().props;
+    const {data, setData, put, errors} = useForm({
+        kategori_id: book?.kategori_buku?.id ? String(book.kategori_buku.id) : '',
+        isbn: book.isbn || '',
+        judul_buku: book.judul_buku || '',
+        penulis: book.penulis || '',
+        penerbit: book.penerbit || '',
+        tahun_terbit: book.tahun_terbit || '',
+        bahasa: book.bahasa || '',
+        stok_total: book.stok_total || '',
+        stok_tersedia: book.stok_tersedia || '',
+        deskripsi: book.deskripsi || '',
+    });
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        console.log(data)
-        post('/data-buku', {
-            preserveScroll: true,
-            onSuccess: () => reset(),
-          })
+    if (!book || !categories) {
+        return <div>Loading...</div>;
     }
+
+    const handleUpdate = (e: React.FormEvent) => {
+        e.preventDefault();
+        console.log(data);
+        put(`/data-buku/book/${book.id}`)
+    }
+    
+
   return (
-        <SheetContent>
-            <SheetHeader>
-                <SheetTitle className="mb-4">Create New Book</SheetTitle>
-                <SheetDescription asChild className="scroll-smooth">
-                <div className="overflow-y-auto max-h-[calc(100vh-120px)] pr-2">
-                    <form className="space-y-8" onSubmit={handleSubmit}>
+    <AppLayout breadcrumbs={breadcrumbs}>
+        <Head title="Dashboard" />
+            <div className='w-full flex flex-col  p-6'>
+            <form className="space-y-8" onSubmit={handleUpdate}>
                         <div className="grid gap-2">
                                 <Label htmlFor="kategori_id">Kategori Buku</Label>
                                 <Select
@@ -199,12 +194,9 @@ const CreateBook: React.FC<CreateBookProps> = ({ categories }) => {
                         </div>
                             <Button type="submit">Submit</Button>
                     </form>
-                </div>
-                
-                </SheetDescription>
-            </SheetHeader>
-        </SheetContent>
+            </div>
+    </AppLayout>
   )
 }
 
-export default CreateBook
+export default EditBook

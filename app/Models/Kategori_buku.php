@@ -12,9 +12,9 @@ class Kategori_buku extends Model
         'deskripsi'
     ];
 
-    // public function bukus()
-    // {
-    //     return $this->hasMany(Buku::class, 'kategori_buku_id');
-    // }
+    public function bukus()
+    {
+        return $this->hasMany(Buku::class, 'kategori_id');
+    }
 
 }

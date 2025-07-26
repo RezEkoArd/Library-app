@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Buku;
 use App\Models\Kategori_buku;
+use Illuminate\Support\Facades\DB;
 
 class BukuController extends Controller
 {
@@ -27,7 +28,6 @@ class BukuController extends Controller
             ->latest()
             ->get();
 
-
         //Kirim data dan filter yang sedang aktif ke halaman buku
         return Inertia::render('data-buku/index',[
             'books' => $books,
@@ -38,27 +38,62 @@ class BukuController extends Controller
     }
 
     public function store(Request $request) {
+
         $validated = $request->validate([
-            'kategori_id' => 'required',
-            'isbn' => 'required',
-            'judul_buku' => 'required',
-            'penulis' => 'required',
-            'penerbit' => 'required',
-            'tahun_terbit' => 'required',
-            'bahasa' => 'required',
-            'stok_total' => 'required',
-            'stok_tersedia' => 'required',
-            'deskripsi' => 'required',
+            'kategori_id' => 'required|exists:kategori_bukus,id',
+            'isbn' => 'required|string|max:20',
+            'judul_buku' => 'required|string|max:255',
+            'penulis' => 'required|string|max:255',
+            'penerbit' => 'required|string|max:255',
+            'tahun_terbit' => 'required|integer',
+            'bahasa' => 'required|string|max:100',
+            'stok_total' => 'required|integer|max:255',
+            'stok_tersedia' => 'required|integer|max:255',
+            'deskripsi' => 'required|string|max:255',
         ]);
 
-        $buku = Buku::create([
-            'judul_buku' => $request->judul_buku,
-            'kategori_id' => $request->kategori_id,
-            'penulis' => $request->penulis,
-            'penerbit' => $request->penerbit,
-            'isbn' => $request->isbn
-        ]);
+        Buku::create($validated);
 
         return redirect()->back()->with('success', 'Buku berhasil ditambahkan.');
+    }
+
+    public function edit(string $id) {
+        $categories = Kategori_buku::all();
+        $book = Buku::find($id)->with('kategoriBuku')->first();
+
+        return Inertia::render('data-buku/edit-buku',[
+            'book' => $book,
+            'categories' => $categories,
+        ]);
+    }
+
+    public function update(Request $request, string $id) {
+        $validated = $request->validate([
+            'kategori_id' => 'required|exists:kategori_bukus,id',
+            'isbn' => 'required|string|max:20',
+            'judul_buku' => 'required|string|max:255',
+            'penulis' => 'required|string|max:255',
+            'penerbit' => 'required|string|max:255',
+            'tahun_terbit' => 'required|integer',
+            'bahasa' => 'required|string|max:100',
+            'stok_total' => 'required|integer|max:255',
+            'stok_tersedia' => 'required|integer|max:255',
+            'deskripsi' => 'required|string|max:255',
+        ]);
+
+        $book = Buku::find($id);
+        $book->update($validated);
+        return redirect()->route('data-buku')->with('success', 'Buku berhasil di update.');
+    }
+
+    public function destroy(string $id) {
+        $book = Buku::find($id);
+
+        if(!$book) {
+            return back()->withErrors(['errorMessage' => 'Book no found.']);
+        }
+
+        $book->delete();
+        return redirect()->back()->with('success', 'Book berhasil di hapus.');
     }
 }

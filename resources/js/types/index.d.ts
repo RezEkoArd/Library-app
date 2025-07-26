@@ -47,7 +47,6 @@ export interface User {
     [key: string]: unknown; // This allows for additional properties...
 }
 
-
 export interface CategoryBuku {
     id: string;
     nama_kategori: string;
@@ -61,11 +60,11 @@ export interface FlashMessage {
     errorMessage?: string; 
 }
 
-
 export interface PagePropsDataBuku extends Record<string, any>{
     flash: FlashMessage;
     categories: CategoryBuku[];
     books: Book[];
+    chartData: ChartDataItem;
     filters : {
         search: string | null;
     }
