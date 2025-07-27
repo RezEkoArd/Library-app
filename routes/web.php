@@ -1,9 +1,8 @@
 <?php
 
+use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\BukuController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KategoriBukuController;
-use App\Models\Kategori_buku;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -26,6 +25,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
+
+    // Anggota User 
+    Route::get('/anggota', [AnggotaController::class, 'index'])->name('anggota.index');  
+    Route::post('/anggota', [AnggotaController::class, 'store'])->name('anggota.store');
 
     // Buku
     Route::get('/data-buku', [BukuController::class, 'index'])->name('data-buku');

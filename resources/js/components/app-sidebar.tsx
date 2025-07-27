@@ -30,6 +30,7 @@ export function AppSidebar() {
 
     const siswaLink = [
         { href: route('dashboard'), title: 'Dashboard', icon: Home },
+        { href: route('anggota.index'), title: 'Profile Anggota', icon: Users },
         { href: route('dashboard'), title: 'Data Buku', icon: BookOpen },
         { href: route('dashboard'), title: 'Peminjaman', icon: Handshake },
         { href: route('dashboard'), title: 'Laporan', icon: ChartNoAxesCombined },

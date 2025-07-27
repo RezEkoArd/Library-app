@@ -69,6 +69,23 @@ export interface PagePropsDataBuku extends Record<string, any>{
         search: string | null;
     }
 }
+
+export interface Anggota {
+    id: string;
+    nama_anggota: string;
+    nama_lengkap: string;
+    alamat: string;
+    no_telp: string;
+    email:string;
+    jenis_anggota: string;
+    status: number;
+}
+
+export interface PagePropsAnggota extends Record<string, any>{
+    flash: FlashMessage;
+    anggota : Anggota | null;
+
+}
   
 export interface CardDashboard {
     cardDescription: string;

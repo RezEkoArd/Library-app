@@ -46,7 +46,6 @@ const CreateBook: React.FC<CreateBookProps> = ({ categories }) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log(data)
         post('/data-buku', {
             preserveScroll: true,
             onSuccess: () => reset(),
