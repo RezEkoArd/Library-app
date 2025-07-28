@@ -24,7 +24,7 @@ export default function DataBukuIndex() {
 
 
   useEffect(() => {
-    if (flash.success) {
+    if (flash.success) {    
       toast.success(flash.success, { duration: 3000 }); 
     }
 
