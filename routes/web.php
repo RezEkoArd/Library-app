@@ -30,6 +30,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/anggota', [AnggotaController::class, 'index'])->name('anggota.index');  
     Route::post('/anggota', [AnggotaController::class, 'store'])->name('anggota.store');
 
+    Route::get('/anggota-admin', [AnggotaController::class, 'indexAdmin'])->name('anggota-admin.index');
+    Route::put('/anggota-admin/{id}', [AnggotaController::class, 'updateAdmin'])->name('anggota-admin.update');
+
     // Buku
     Route::get('/data-buku', [BukuController::class, 'index'])->name('data-buku');
     Route::post('/data-buku', [BukuController::class, 'store'])->name('data-buku.store');

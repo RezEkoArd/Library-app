@@ -3,7 +3,7 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from '@/components/ui/sidebar';
 import { SharedData, type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import {  BookCopy, BookOpen, ChartNoAxesCombined, Coins, Folder, Handshake, Home, LayoutGrid, User2, Users } from 'lucide-react';
+import {  BookCopy, BookOpen, ChartNoAxesCombined, Coins, Folder, Handshake, Home, LayoutGrid, User2, User2Icon, Users } from 'lucide-react';
 import AppLogo from './app-logo';
 
 export function AppSidebar() {
@@ -15,7 +15,7 @@ export function AppSidebar() {
     const adminLinks = [
         { href: route('dashboard'), title: 'Dashboard', icon: Home },
         { href: route('data-buku'), title: 'Data Buku', icon: BookCopy }, // Lihat buku, tambah buku
-        { href: route('dashboard'), title: 'Anggota', icon: User2 },  // Lihat Anggota, tambah Anggota
+        { href: route('anggota-admin.index'), title: 'Anggota', icon: User2 },  // Lihat Anggota, tambah Anggota
         { href: route('dashboard'), title: 'Peminjaman', icon: Handshake },  // Lihat Peminjaman, tambah Peminjaman
         { href: route('dashboard'), title: 'Transaksi', icon: Coins },
 
@@ -30,7 +30,7 @@ export function AppSidebar() {
 
     const siswaLink = [
         { href: route('dashboard'), title: 'Dashboard', icon: Home },
-        { href: route('anggota.index'), title: 'Profile Anggota', icon: Users },
+        { href: route('anggota.index'), title: 'Profile Anggota', icon: User2Icon },
         { href: route('dashboard'), title: 'Data Buku', icon: BookOpen },
         { href: route('dashboard'), title: 'Peminjaman', icon: Handshake },
         { href: route('dashboard'), title: 'Laporan', icon: ChartNoAxesCombined },

@@ -84,7 +84,11 @@ export interface Anggota {
 export interface PagePropsAnggota extends Record<string, any>{
     flash: FlashMessage;
     anggota : Anggota | null;
+}
 
+export interface PagePropsAnggotaAdmin extends Record<string, any>{
+    flash: FlashMessage;
+    anggota : Anggota[];
 }
   
 export interface CardDashboard {

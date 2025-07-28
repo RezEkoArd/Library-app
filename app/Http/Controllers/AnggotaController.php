@@ -10,6 +10,47 @@ use App\Models\User;    // Jika diperlukan
 
 class AnggotaController extends Controller
 {
+
+    public function indexAdmin()
+    {
+        $anggota = Anggota::with('user')->latest()->get();
+        return Inertia::render('anggota/index-admin',[
+            'anggota' => $anggota
+        ]);
+    }
+
+    public function updateAdmin(Request $request, string $id) 
+    {
+
+        $isAnggota = Anggota::findOrFail($id);
+
+        $validated = $request->validate([
+            'nama_anggota' => 'required|string|max:255',    
+            'nama_lengkap' => 'required|string|max:255',
+            'alamat' => 'required|string|max:255',
+            'no_telp' => 'required|string|min:10|max:13',
+            'email' => 'required|string|email|max:100|unique:anggotas,email,' . $id,
+            'status' => 'required|in:1,0',
+        ]);   
+
+
+        // Convert status to bool
+        $validated['status'] = (bool) $validated['status'];
+
+        // Update the anggota record
+        $isAnggota->update($validated);
+
+        // Jika ada relasi user dan perlu update juga
+        if ($isAnggota->user) {
+            $isAnggota->user->update([
+                'email' => $validated['email'],
+                'name' => $validated['nama_lengkap']
+            ]);
+        }
+
+        return redirect()->route('anggota-admin.index')->with('success', 'Anggota berhasil di update.');
+    }
+
     //
     public function index()
     {

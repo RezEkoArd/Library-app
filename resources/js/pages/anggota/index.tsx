@@ -44,9 +44,9 @@ export default function DataBukuIndex() {
                     </div>
                     
                     {
-                      anggota && anggota.status === 1 ? (
+                      anggota && anggota.status == 1 ? (
                         renderAnggotaData()
-                      ) : anggota && anggota.status === 0 ? (
+                      ) : anggota && anggota.status == 0 ? (
                         renderPendingApproval()
                       ) : (
                         renderRegistrationForm()
