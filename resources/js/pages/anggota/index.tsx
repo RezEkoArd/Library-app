@@ -1,7 +1,7 @@
 import AppLayout from '@/layouts/app-layout';
-import { PagePropsAnggota, type BreadcrumbItem } from '@/types';
-import { Head, router, usePage } from '@inertiajs/react';
-import { useEffect, useState } from 'react';
+import { Anggota, PagePropsAnggota, type BreadcrumbItem } from '@/types';
+import { Head, usePage } from '@inertiajs/react';
+import { useEffect } from 'react';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
@@ -45,7 +45,7 @@ export default function DataBukuIndex() {
                     
                     {
                       anggota && anggota.status == 1 ? (
-                        renderAnggotaData()
+                        renderAnggotaData( anggota )
                       ) : anggota && anggota.status == 0 ? (
                         renderPendingApproval()
                       ) : (
@@ -59,37 +59,37 @@ export default function DataBukuIndex() {
 }
 
 
-const renderAnggotaData = () => (
+const renderAnggotaData = (anggota : Anggota) => (
     <>
     <div className='grid lg:grid-cols-2 mt-4'>
         <div className='w-full flex flex-col p-2 gap-3'>
             <Label className='text-sm tfo'>Nama Anggota : </Label>    
-            <p className='font-extralight text-sm text-gray-500'>Rezky Eko Ardianto</p>
+            <p className='font-extralight text-sm text-gray-500'>{anggota.nama_anggota}</p>
         </div>
         <div className='w-full flex flex-col p-2 gap-3'>
             <Label className='text-sm tfo'>Nama Lengkap : </Label>    
-            <p className='font-extralight text-sm text-gray-500'>Rezky Eko Ardianto</p>
+            <p className='font-extralight text-sm text-gray-500'>{anggota.nama_lengkap}</p>
         </div>
     </div>
     <div className='grid lg:grid-cols-2 mt-4'>
         <div className='w-full flex flex-col p-2 gap-3'>
             <Label className='text-sm tfo'>Email : </Label>    
-            <p className='font-extralight text-sm text-gray-500'>rezekoard@gmail.com</p>
+            <p className='font-extralight text-sm text-gray-500'>{ anggota.email }</p>
         </div>
         <div className='w-full flex flex-col p-2 gap-3'>
             <Label className='text-sm tfo'>No Telphone : </Label>    
-            <p className='font-extralight text-sm text-gray-500'>081314254541</p>
+            <p className='font-extralight text-sm text-gray-500'>{ anggota.no_telp }</p>
         </div>
     </div>
     <div className='grid lg:grid-cols-2 mt-4'>
         <div className='w-full flex flex-col p-2 gap-3'>
             <Label className='text-sm tfo'>Jenis Anggota : </Label>    
             {/* Anggota / Siswa */}
-            <p className='font-extralight text-sm text-gray-500'>Anggota</p> 
+            <p className='font-extralight text-sm text-gray-500'>{ anggota.jenis_anggota }</p> 
         </div>
         <div className='w-full flex flex-col p-2 gap-3'>
             <Label className='text-sm tfo'>Alamat : </Label>    
-            <p className='font-extralight text-sm text-gray-500'>Jl. Abdul Muis No.36 Blok G-H, RT.2/RW.8, Petojo Sel., Kecamatan Gambir, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10160</p>
+            <p className='font-extralight text-sm text-gray-500'>{ anggota.alamat }</p>
         </div>
     </div>
     </>

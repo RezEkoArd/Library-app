@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Buku;
 use App\Models\Kategori_buku;
-use Illuminate\Support\Facades\DB;
 
 class BukuController extends Controller
 {

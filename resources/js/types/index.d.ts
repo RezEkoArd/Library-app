@@ -91,6 +91,11 @@ export interface PagePropsAnggotaAdmin extends Record<string, any>{
     anggota : Anggota[];
 }
   
+export interface PagePropsPeminjaman extends Record<string, any>{
+    flash: FlashMessage;
+    peminjaman : Peminjaman[];
+}
+
 export interface CardDashboard {
     cardDescription: string;
     cardTitle: string;
