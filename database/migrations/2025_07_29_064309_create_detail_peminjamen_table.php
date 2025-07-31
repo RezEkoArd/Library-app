@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('detail_peminjamen', function (Blueprint $table) {
             $table->id();
             $table->foreignId('peminjaman_id')->constrained('peminjamen')->onDelete('cascade');
-            $table->foreignId('buku_id')->constrained('bukus')->onDelete('cascade');
+            $table->foreignId('buku_id')->constrained('bukus');
             $table->integer('jumlah_pinjam');
             $table->string('kondisi_pinjam');
             $table->string('kondisi_kembali');

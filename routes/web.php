@@ -34,7 +34,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman');
     Route::get('/peminjaman/create', [PeminjamanController::class, 'create'])->name('peminjaman.create');
     Route::post('/peminjaman', [PeminjamanController::class, 'store'])->name('peminjaman.store');
-    Route::get('/peminjaman-edit/{id}', [PeminjamanController::class, 'edit'])->name('peminjaman.edit');
+    Route::put('/peminjaman-edit/{id}', [PeminjamanController::class, 'update'])->name('peminjaman.update');
+    Route::get('/peminjaman-edit/{id}/edit', [PeminjamanController::class, 'edit'])->name('peminjaman.edit');
+    Route::delete('/peminjaman/{id}', [PeminjamanController::class, 'delete'])->name('peminjaman.destroy');
+
+
     // Anggota User 
     Route::get('/anggota', [AnggotaController::class, 'index'])->name('anggota.index');  
     Route::post('/anggota', [AnggotaController::class, 'store'])->name('anggota.store');

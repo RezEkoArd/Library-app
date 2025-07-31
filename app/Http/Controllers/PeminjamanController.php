@@ -9,6 +9,7 @@ use Inertia\Inertia;
 
 class PeminjamanController extends Controller
 {
+
     public function indexAdmin() {
         $peminjaman = Peminjaman::with( ['anggota','user'] )->get();
         return Inertia::render('peminjaman/index-admin', [
@@ -105,13 +106,38 @@ class PeminjamanController extends Controller
 
     public function edit(string $id) {
         $books = Buku::all();;
-        $anggotaId = auth()->guard('web')->user()->anggota->id;
-        $peminjamanId = $id;
+        $peminjaman = Peminjaman::with(['details','anggota','user'])->find($id);
+        // dd($peminjaman);
 
-        return Inertia::render('peminjaman/index')
-            'anggota_id' => $anggotaId,
-            'peminjaman_id' => $peminjamanId,
-            'books' => $books ,
+        return Inertia::render('peminjaman/peminjaman-update', [
+            'peminjaman' => $peminjaman,
+            'books' => $books
         ]);
+    }
+
+
+    public function update(Request $request, $id) {
+        $validated = $request -> validate([
+            'tanggal_kembali_actual' => 'required|date',
+            'status' => 'required|string',
+        ]);
+
+        $peminjaman = Peminjaman::findOrFail($id);
+        $peminjaman->update($validated);
+
+        return redirect('/peminjaman-admin')->with('success', 'Peminjaman berhasil di update.');
+    }
+
+    public function delete($id) {
+        $peminjaman = Peminjaman::findOrFail($id);
+
+        $peminjaman->delete();
+        // Opsi: kamu bisa juga mengecek apakah status belum dikembalikan, dsb.
+        if ($peminjaman->status === 'dikembalikan') {
+            return redirect()->back()->with('errorMessage', 'Data peminjaman yang sudah dikembalikan tidak bisa dihapus.');
+        }
+
+
+        return redirect('/peminjaman-admin')->with('errorMessage', 'Peminjaman berhasil di hapus.');
     }
 }

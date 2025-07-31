@@ -11,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Badge } from "@/components/ui/badge"
+import { Link, router } from "@inertiajs/react"
 
 
 
@@ -32,8 +33,21 @@ export type Peminjaman = {
     nama_anggota: string;
     // tambahkan field lain kalau perlu
   };
-
 }
+
+const handleDelete = (id: number) => {
+  if (confirm("Yakin ingin menghapus data ini?")) {
+    router.delete(`/peminjaman/${id}`, {
+      onSuccess: () => {
+        console.log("Berhasil dihapus");
+      },
+      onError: (err) => {
+        console.error(err)
+      }
+    });
+  }
+}
+
 
 export const columns: ColumnDef<Peminjaman>[] = [
   {
@@ -136,13 +150,18 @@ export const columns: ColumnDef<Peminjaman>[] = [
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem className="flex items-center justify-between">
-                Edit 
-                <span>
-                  <Edit className="ml-2 h-4 w-4" />
-                </span>
+              <DropdownMenuItem className="flex items-center justify-between" asChild>
+                <Link href={'/peminjaman-edit/' + peminjaman.id + '/edit'}>
+                  Edit 
+                  <span>
+                    <Edit className="ml-2 h-4 w-4" />
+                  </span>
+                </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem className="flex items-center justify-between">
+              <DropdownMenuItem 
+                className="flex items-center justify-between"
+                onClick={() => handleDelete(row.original.id)}
+                >
                 Delete 
                 <span>
                   <Delete className="ml-2 h-4 w-4" />
