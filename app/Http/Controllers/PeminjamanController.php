@@ -9,18 +9,52 @@ use Inertia\Inertia;
 
 class PeminjamanController extends Controller
 {
-    public function index() {
+    public function indexAdmin() {
         $peminjaman = Peminjaman::with( ['anggota','user'] )->get();
+        return Inertia::render('peminjaman/index-admin', [
+            'peminjaman' => $peminjaman
+        ]);
+    }
+
+    public function index() {
+        $user = auth()->guard('web')->user();
+        $anggota = $user->anggota;
+
+        if (!$anggota) {
+            return redirect()->back()->with('errorMessage', 'Kamu belum terdaftar sebagai anggota.');
+        }
+
+        $anggotaId = $anggota->id;
+
+
+        $books = Buku::all();
+
+        $peminjaman = Peminjaman::with(['details','anggota','user'])
+        ->where('anggota_id', $anggotaId)
+        ->get();
 
         return Inertia::render('peminjaman/index', [
-            'peminjaman' => $peminjaman
+            'peminjaman' => $peminjaman,
+            'bukus' => $books,
+            'anggota_id' => $anggotaId,
+        ]);
+    }
+
+    public function create() {
+        $books = Buku::all();
+        $anggotaId = auth()->guard('web')->user()->anggota->id;
+        
+
+        return Inertia::render('peminjaman/peminjaman-create', [
+            'anggota_id' => $anggotaId,
+            'books' => $books
         ]);
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'anggota_id' => 'required|exists:anggotas, id',
+            'anggota_id' => 'required|exists:anggotas,id',
             'tanggal_kembali_rencana' => 'required|date',
             'catatan' => 'nullable| string',
             'details' => 'required| array | min:1',
@@ -32,21 +66,27 @@ class PeminjamanController extends Controller
 
         $totalBuku = collect($validated['details'])->sum('jumlah_pinjam');
 
+
+        $lastId = Peminjaman::max('id') ?? 0;
+        $nextNumber = $lastId + 1;
+        $kodePeminjaman = 'PMJ-' . $nextNumber;
+
         // Simpan data peminjaman
         $peminjaman = Peminjaman::create([
             'anggota_id' => $validated['anggota_id'],
             'petugas_id' => auth()->guard('web')->user()->id,
-            'kode_peminjaman' => 'PMJ-' . time(),
+            'kode_peminjaman' => $kodePeminjaman,
+            'tanggal_pinjam' => now(),
             'tanggal_kembali_rencana' => $validated['tanggal_kembali_rencana'],
             'tanggal_kembali_actual' => null,
             'total_buku' => $totalBuku,
-            'status' => 'dipinjam',
+            'status' => 'menunggu',
             'catatan' => $validated['catatan'],
-            'price' => 0, // Default value  
+            'price' => 0,
         ]);
 
         // Simpan semua detail buku
-        $datailData = collect($validated['details'])->map(function ($detail) {
+        $detailData = collect($validated['details'])->map(function ($detail) {
             return [
                 'buku_id' => $detail['buku_id'],
                 'jumlah_pinjam' => $detail['jumlah_pinjam'],
@@ -57,12 +97,21 @@ class PeminjamanController extends Controller
         })->toArray();
 
 
-        $peminjaman->details()->createMany($datailData);
+        $peminjaman->details()->createMany($detailData);
 
-        return response()->json([
-            'message' => 'Peminjaman berhasil disimpan.',
-            'data' => $peminjaman->load('details'),
-        ], 201);
-        
+        return redirect()->route('peminjaman')->with('success', 'Peminjaman berhasil disimpan.');        
+    }
+
+
+    public function edit(string $id) {
+        $books = Buku::all();;
+        $anggotaId = auth()->guard('web')->user()->anggota->id;
+        $peminjamanId = $id;
+
+        return Inertia::render('peminjaman/index')
+            'anggota_id' => $anggotaId,
+            'peminjaman_id' => $peminjamanId,
+            'books' => $books ,
+        ]);
     }
 }

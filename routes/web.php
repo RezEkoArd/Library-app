@@ -27,12 +27,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
 
-    // Peminjaman User 
+    // Peminjaman Admin
+    Route::get('/peminjaman-admin', [PeminjamanController::class, 'indexAdmin'])->name('peminjaman-admin');
+
+    // Peminjaman Siswa
     Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman');
-
-    // Peminjaman Detail
-    // Route::get('/pe')
-
+    Route::get('/peminjaman/create', [PeminjamanController::class, 'create'])->name('peminjaman.create');
+    Route::post('/peminjaman', [PeminjamanController::class, 'store'])->name('peminjaman.store');
+    Route::get('/peminjaman-edit/{id}', [PeminjamanController::class, 'edit'])->name('peminjaman.edit');
     // Anggota User 
     Route::get('/anggota', [AnggotaController::class, 'index'])->name('anggota.index');  
     Route::post('/anggota', [AnggotaController::class, 'store'])->name('anggota.store');

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Anggota;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use App\Models\User;    // Jika diperlukan
 
 
 class AnggotaController extends Controller

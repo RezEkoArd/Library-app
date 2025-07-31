@@ -94,6 +94,7 @@ export interface PagePropsAnggotaAdmin extends Record<string, any>{
 export interface PagePropsPeminjaman extends Record<string, any>{
     flash: FlashMessage;
     peminjaman : Peminjaman[];
+    bukus: Buku[];
 }
 
 export interface CardDashboard {

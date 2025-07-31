@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string('kode_peminjaman');
             $table->date('tanggal_pinjam');
             $table->date('tanggal_kembali_rencana');
-            $table->date('tanggal_kembali_actual');
+            $table->date('tanggal_kembali_actual')->nullable();
             $table->integer('total_buku');
-            $table->string('status');
+            $table->string('status'); // menunggu , dipinjam, terlambat, dikembalikan, hilang
             $table->string('catatan');
             $table->integer('price');
             $table->timestamps();

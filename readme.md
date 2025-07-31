@@ -164,11 +164,3 @@ Proyek ini dilisensikan di bawah Lisensi MIT. Lihat file LICENSE untuk detail le
 
 Semoga ini membantu kamu dalam mendokumentasikan proyek GitHub pribadimu!
 
-
-
-
-
-
-
-
-
