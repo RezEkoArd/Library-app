@@ -102,9 +102,9 @@ export default function PeminjamanIndex() {
                                     selected={date}
                                     captionLayout="dropdown"
                                     onSelect={(selectedDate) => {
-                                        if (selectedDate) {
+                                        if (selectedDate || undefined) {
                                             setDate(selectedDate)
-                                            setData("tanggal_kembali_actual", selectedDate.toISOString().split("T")[0]); 
+                                            setData("tanggal_kembali_actual", selectedDate ? selectedDate.toISOString().split("T")[0] : null); 
                                             setOpen(false);
                                         }
                                     }}

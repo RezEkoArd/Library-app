@@ -118,7 +118,7 @@ class PeminjamanController extends Controller
 
     public function update(Request $request, $id) {
         $validated = $request -> validate([
-            'tanggal_kembali_actual' => 'required|date',
+            'tanggal_kembali_actual' => 'nullable|date',
             'status' => 'required|string',
         ]);
 
