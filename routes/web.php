@@ -47,12 +47,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/anggota-admin/{id}', [AnggotaController::class, 'updateAdmin'])->name('anggota-admin.update');
 
     // Buku
-    Route::get('/data-buku', [BukuController::class, 'index'])->name('data-buku');
+    Route::get('/data-buku-admin', [BukuController::class, 'indexAdmin'])->name('data-buku.admin');
     Route::post('/data-buku', [BukuController::class, 'store'])->name('data-buku.store');
     Route::delete('/data-buku/book/{id}', [BukuController::class, 'destroy'])->name('data-buku.destroy');
     Route::get('/data-buku/book/edit/{id}', [BukuController::class, 'edit'])->name('data-buku.edit');
     Route::put('/data-buku/book/{id}', [BukuController::class, 'update'])->name('data-buku.update');
-    
+
+    // Buku Siswa
+    Route::get('/data-buku', [BukuController::class, 'index'])->name('data-buku');
+    Route::get('/data-buku/{id}', [BukuController::class, 'show'])->name('data-buku.show');
 
     // Chart Data
     Route::get('/api/chart/buku-kategori', [BukuController::class, 'getChartData']);

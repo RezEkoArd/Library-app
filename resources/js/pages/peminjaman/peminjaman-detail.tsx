@@ -29,7 +29,7 @@ const PeminjamanDetail = () => {
                         Kode Peminjaman: {peminjaman.kode_peminjaman}
                       </h1>
                       <Link href="/peminjaman" >
-                        <Button className="cursor-pointer" variant="outline">Exit</Button>
+                        <Button className="cursor-pointer" >Back</Button>
                       </Link>
                     </div>
                     

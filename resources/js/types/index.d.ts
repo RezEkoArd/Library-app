@@ -69,6 +69,9 @@ export interface PagePropsDataBuku extends Record<string, any>{
         search: string | null;
     }
 }
+export interface PagePropsDataBukuDetail extends Record<string, any>{
+    books: Book;
+}
 
 export interface Anggota {
     id: string;

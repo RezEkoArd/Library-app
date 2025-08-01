@@ -9,7 +9,7 @@ use App\Models\Kategori_buku;
 
 class BukuController extends Controller
 {
-    public function index(Request $request) {
+    public function indexAdmin(Request $request) {
 
         // get search value
         $searchQuery = $request->input('search');
@@ -28,13 +28,42 @@ class BukuController extends Controller
             ->get();
 
         //Kirim data dan filter yang sedang aktif ke halaman buku
-        return Inertia::render('data-buku/index',[
+        return Inertia::render('data-buku/index-admin',[
             'books' => $books,
             'categories' => Kategori_buku::all(),
             // Kirim kembali query filter
             'filters' => $request->only(['search'])
         ]);
     }
+
+    public function index(Request $request) {
+        $search = $request->input('search');
+
+        $bukus = Buku::with('kategoriBuku')
+            ->when($search, function ($query, $search) {
+                $query->where('judul_buku', 'like', "%{$search}%")
+                    ->orWhere('penulis', 'like', "%{$search}%")
+                    ->orWhere('penerbit', 'like', "%{$search}%")
+                    ->orWhere('isbn', 'like', "%{$search}%");
+            })
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return Inertia::render('data-buku/index', [
+            'bukus' => $bukus,
+            'search' => $search,
+        ]);
+    }
+
+    public function show(string $id) {
+        $book = Buku::with('kategoriBuku')->find($id);
+
+        return Inertia::render('data-buku/show', [
+            'book' => $book,
+        ]);
+    }
+
+
 
     public function store(Request $request) {
 
