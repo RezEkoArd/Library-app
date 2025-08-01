@@ -29,15 +29,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Peminjaman Admin
     Route::get('/peminjaman-admin', [PeminjamanController::class, 'indexAdmin'])->name('peminjaman-admin');
+    Route::put('/peminjaman-edit/{id}', [PeminjamanController::class, 'update'])->name('peminjaman.update');
+    Route::get('/peminjaman-edit/{id}/edit', [PeminjamanController::class, 'edit'])->name('peminjaman.edit');
+    Route::delete('/peminjaman/{id}', [PeminjamanController::class, 'delete'])->name('peminjaman.destroy');
 
     // Peminjaman Siswa
     Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman');
     Route::get('/peminjaman/create', [PeminjamanController::class, 'create'])->name('peminjaman.create');
     Route::post('/peminjaman', [PeminjamanController::class, 'store'])->name('peminjaman.store');
-    Route::put('/peminjaman-edit/{id}', [PeminjamanController::class, 'update'])->name('peminjaman.update');
-    Route::get('/peminjaman-edit/{id}/edit', [PeminjamanController::class, 'edit'])->name('peminjaman.edit');
-    Route::delete('/peminjaman/{id}', [PeminjamanController::class, 'delete'])->name('peminjaman.destroy');
-
+    Route::get('/peminjaman/{id}/detail', [PeminjamanController::class, 'show'])->name('peminjaman.show');
 
     // Anggota User 
     Route::get('/anggota', [AnggotaController::class, 'index'])->name('anggota.index');  

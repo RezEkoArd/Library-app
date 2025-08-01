@@ -22,7 +22,7 @@ class BukuSeeder extends Seeder
                 'tahun_terbit' => '2023',
                 'bahasa' => 'Indonesia',
                 'stok_total' => 10,
-                'stok_tersedia' => 7,
+                'stok_tersedia' => 10,
                 'deskripsi' => 'Panduan praktis membangun aplikasi web menggunakan Laravel.'
             ],
             [
@@ -33,8 +33,8 @@ class BukuSeeder extends Seeder
                 'penerbit' => 'Elex Media Komputindo',
                 'tahun_terbit' => '2021',
                 'bahasa' => 'Indonesia',
-                'stok_total' => 12,
-                'stok_tersedia' => 12,
+                'stok_total' => 10,
+                'stok_tersedia' => 10,
                 'deskripsi' => 'Cocok untuk pemula yang ingin belajar Python dari nol.'
             ],
             [
@@ -45,8 +45,8 @@ class BukuSeeder extends Seeder
                 'penerbit' => 'Gramedia',
                 'tahun_terbit' => '2020',
                 'bahasa' => 'Indonesia',
-                'stok_total' => 8,
-                'stok_tersedia' => 6,
+                'stok_total' => 10,
+                'stok_tersedia' => 10,
                 'deskripsi' => 'Buku dasar Java dengan contoh kasus praktis.'
             ],
             [
@@ -57,7 +57,7 @@ class BukuSeeder extends Seeder
                 'penerbit' => 'Bentang Pustaka',
                 'tahun_terbit' => '2019',
                 'bahasa' => 'Indonesia',
-                'stok_total' => 15,
+                'stok_total' => 10,
                 'stok_tersedia' => 10,
                 'deskripsi' => 'Cerita fiksi detektif yang penuh teka-teki dan ketegangan.'
             ],
@@ -69,8 +69,8 @@ class BukuSeeder extends Seeder
                 'penerbit' => 'Andi Publisher',
                 'tahun_terbit' => '2022',
                 'bahasa' => 'Indonesia',
-                'stok_total' => 6,
-                'stok_tersedia' => 6,
+                'stok_total' => 10,
+                'stok_tersedia' => 10,
                 'deskripsi' => 'Membahas perilaku dan tantangan remaja masa kini.'
             ],
             [
@@ -82,7 +82,7 @@ class BukuSeeder extends Seeder
                 'tahun_terbit' => '2021',
                 'bahasa' => 'Indonesia',
                 'stok_total' => 10,
-                'stok_tersedia' => 4,
+                'stok_tersedia' => 10,
                 'deskripsi' => 'Referensi dasar untuk membangun website statis.'
             ],
             [
@@ -93,8 +93,8 @@ class BukuSeeder extends Seeder
                 'penerbit' => 'Informatika Bandung',
                 'tahun_terbit' => '2024',
                 'bahasa' => 'Indonesia',
-                'stok_total' => 7,
-                'stok_tersedia' => 3,
+                'stok_total' => 10,
+                'stok_tersedia' => 10,
                 'deskripsi' => 'Teknik lanjut membuat REST API menggunakan Laravel 10.'
             ],
             [
@@ -105,8 +105,8 @@ class BukuSeeder extends Seeder
                 'penerbit' => 'Rajagrafindo Persada',
                 'tahun_terbit' => '2018',
                 'bahasa' => 'Indonesia',
-                'stok_total' => 5,
-                'stok_tersedia' => 2,
+                'stok_total' => 10,
+                'stok_tersedia' => 10,
                 'deskripsi' => 'Membahas dasar-dasar filsafat dan implementasinya di ilmu pengetahuan.'
             ],
             [
@@ -117,8 +117,8 @@ class BukuSeeder extends Seeder
                 'penerbit' => 'Gagas Media',
                 'tahun_terbit' => '2020',
                 'bahasa' => 'Indonesia',
-                'stok_total' => 9,
-                'stok_tersedia' => 9,
+                'stok_total' => 10,
+                'stok_tersedia' => 10,
                 'deskripsi' => 'Cerpen-cerpen romantis penuh makna dan emosi.'
             ],
             [
@@ -130,7 +130,7 @@ class BukuSeeder extends Seeder
                 'tahun_terbit' => '2023',
                 'bahasa' => 'Indonesia',
                 'stok_total' => 10,
-                'stok_tersedia' => 8,
+                'stok_tersedia' => 10,
                 'deskripsi' => 'Tips dan refleksi untuk menyembuhkan diri secara mental dan emosional.'
             ],
         ]);

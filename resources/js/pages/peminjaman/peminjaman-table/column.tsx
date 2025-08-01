@@ -12,7 +12,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+
 import { Badge } from "@/components/ui/badge"
+import { Link } from "@inertiajs/react"
 export type Peminjaman = {
   id: number
   anggota_id : number
@@ -117,6 +119,31 @@ export const columns: ColumnDef<Peminjaman>[] = [
       const badge = statusMap[status] ?? { label: status, variant: "secondary" };
   
       return <Badge variant={badge.variant}>{badge.label}</Badge>;
+    },
+  },
+  {
+    header: "Actions",
+    id: "actions",
+    cell: ({ row }) => {
+      const peminjaman = row.original
+ 
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="h-8 w-8 p-0">
+              <span className="sr-only">Open menu</span>
+              <MoreHorizontal className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem asChild>
+                <Link href={`/peminjaman/${peminjaman.id}/detail`}>
+                  Detail
+                </Link>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )
     },
   },
 

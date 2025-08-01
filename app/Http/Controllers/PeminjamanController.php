@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Buku;
 use App\Models\Peminjaman;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class PeminjamanController extends Controller
@@ -57,50 +58,56 @@ class PeminjamanController extends Controller
         $validated = $request->validate([
             'anggota_id' => 'required|exists:anggotas,id',
             'tanggal_kembali_rencana' => 'required|date',
-            'catatan' => 'nullable| string',
-            'details' => 'required| array | min:1',
+            'catatan' => 'nullable|string',
+            'details' => 'required|array|min:1',
             'details.*.buku_id' => 'required|exists:bukus,id',
             'details.*.jumlah_pinjam' => 'required|integer|min:1',
             'details.*.kondisi_pinjam' => 'required|string',
             'details.*.catatan' => 'nullable|string',
         ]);
-
-        $totalBuku = collect($validated['details'])->sum('jumlah_pinjam');
-
-
-        $lastId = Peminjaman::max('id') ?? 0;
-        $nextNumber = $lastId + 1;
-        $kodePeminjaman = 'PMJ-' . $nextNumber;
-
-        // Simpan data peminjaman
-        $peminjaman = Peminjaman::create([
-            'anggota_id' => $validated['anggota_id'],
-            'petugas_id' => auth()->guard('web')->user()->id,
-            'kode_peminjaman' => $kodePeminjaman,
-            'tanggal_pinjam' => now(),
-            'tanggal_kembali_rencana' => $validated['tanggal_kembali_rencana'],
-            'tanggal_kembali_actual' => null,
-            'total_buku' => $totalBuku,
-            'status' => 'menunggu',
-            'catatan' => $validated['catatan'],
-            'price' => 0,
-        ]);
-
-        // Simpan semua detail buku
-        $detailData = collect($validated['details'])->map(function ($detail) {
-            return [
-                'buku_id' => $detail['buku_id'],
-                'jumlah_pinjam' => $detail['jumlah_pinjam'],
-                'kondisi_pinjam' => $detail['kondisi_pinjam'],
-                'kondisi_kembali' => '-',
-                'catatan' => $detail['catatan'] ?? '',
-            ];
-        })->toArray();
-
-
-        $peminjaman->details()->createMany($detailData);
-
-        return redirect()->route('peminjaman')->with('success', 'Peminjaman berhasil disimpan.');        
+    
+        DB::transaction(function () use ($validated) {
+            $totalBuku = collect($validated['details'])->sum('jumlah_pinjam');
+            $nextId = (Peminjaman::max('id') ?? 0) + 1;
+    
+            $peminjaman = Peminjaman::create([
+                'anggota_id' => $validated['anggota_id'],
+                'petugas_id' => auth()->guard('web')->user()->id,
+                'kode_peminjaman' => 'PMJ-' . $nextId,
+                'tanggal_pinjam' => now(),
+                'tanggal_kembali_rencana' => $validated['tanggal_kembali_rencana'],
+                'tanggal_kembali_actual' => null,
+                'total_buku' => $totalBuku,
+                'status' => 'menunggu',
+                'catatan' => $validated['catatan'],
+                'price' => 0,
+            ]);
+    
+            $detailData = [];
+    
+            foreach ($validated['details'] as $detail) {
+                $buku = Buku::where('id', $detail['buku_id'])->lockForUpdate()->first(); // Pastikan tidak race condition
+    
+                if ($buku->stok_tersedia < $detail['jumlah_pinjam']) {
+                    throw new \Exception("Stok buku '{$buku->judul_buku}' tidak mencukupi.");
+                }
+    
+                $buku->decrement('stok_tersedia', $detail['jumlah_pinjam']);
+    
+                $detailData[] = [
+                    'buku_id' => $buku->id,
+                    'jumlah_pinjam' => $detail['jumlah_pinjam'],
+                    'kondisi_pinjam' => $detail['kondisi_pinjam'],
+                    'kondisi_kembali' => '-',
+                    'catatan' => $detail['catatan'] ?? '',
+                ];
+            }
+    
+            $peminjaman->details()->createMany($detailData);
+        });
+    
+        return redirect()->route('peminjaman')->with('success', 'Peminjaman berhasil disimpan.');
+       
     }
 
 
@@ -140,4 +147,18 @@ class PeminjamanController extends Controller
 
         return redirect('/peminjaman-admin')->with('errorMessage', 'Peminjaman berhasil di hapus.');
     }
+
+    public function show($id) {
+        $peminjaman = Peminjaman::with([
+            'anggota',
+            'user',
+            'details.buku' //Detail_peminjaman dan relasi ke buku
+        ])->findOrFail($id);
+
+        return Inertia::render('peminjaman/peminjaman-detail', [
+            'peminjaman' => $peminjaman
+        ]);
+    }   
 }
+
+
