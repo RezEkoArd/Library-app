@@ -14,8 +14,6 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 const PeminjamanDetail = () => {
   const {peminjaman}  = usePage<PeminjamanDetailPageProps>().props;
-
-  console.log(peminjaman);
   
   return (
     <AppLayout breadcrumbs={breadcrumbs}>
@@ -28,9 +26,16 @@ const PeminjamanDetail = () => {
                       <h1 className="text-2xl font-bold text-gray-800 mb-4">
                         Kode Peminjaman: {peminjaman.kode_peminjaman}
                       </h1>
-                      <Link href="/peminjaman" >
-                        <Button className="cursor-pointer" >Back</Button>
-                      </Link>
+                      <div className="flex gap-2">
+                        {peminjaman.status === 'dipinjam' && (
+                          <Link href={`/peminjaman/${peminjaman.id}/perpanjangan`}>
+                            <Button className="cursor-pointer">Perpanjang</Button>
+                          </Link>
+                        )}
+                        <Link href="/peminjaman" >
+                          <Button className="cursor-pointer" >Back</Button>
+                        </Link>
+                      </div>
                     </div>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

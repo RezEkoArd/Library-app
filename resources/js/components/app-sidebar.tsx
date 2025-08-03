@@ -18,13 +18,14 @@ export function AppSidebar() {
         { href: route('anggota-admin.index'), title: 'Anggota', icon: User2 },  // Lihat Anggota, tambah Anggota
         { href: route('peminjaman-admin'), title: 'Peminjaman', icon: Handshake },  // Lihat Peminjaman, tambah Peminjaman
         { href: route('dashboard'), title: 'Perpanjangan ', icon: Coins },
+        { href: route('dashboard'), title: 'Laporan', icon: ChartNoAxesCombined },
 
     ];
     const guruLink = [
         { href: route('dashboard'), title: 'Dashboard', icon: Home },
-        { href: route('dashboard'), title: 'Data Buku', icon: BookOpen },
-        { href: route('dashboard'), title: 'Peminjaman', icon: Handshake },
-        { href: route('dashboard'), title: 'Laporan', icon: ChartNoAxesCombined },
+        { href: route('anggota.index'), title: 'Data Buku', icon: BookOpen },
+        { href: route('data-buku'), title: 'Peminjaman', icon: Handshake },
+        { href: route('peminjaman'), title: 'Laporan', icon: ChartNoAxesCombined },
     ]
 
     const siswaLink = [
@@ -32,7 +33,7 @@ export function AppSidebar() {
         { href: route('anggota.index'), title: 'Profile Anggota', icon: User2Icon },
         { href: route('data-buku'), title: 'Data Buku', icon: BookOpen },
         { href: route('peminjaman'), title: 'Peminjaman', icon: Handshake },
-        { href: route('dashboard'), title: 'Laporan', icon: ChartNoAxesCombined },
+        
     ]
 
     let navLinks: NavItem[] = [];
