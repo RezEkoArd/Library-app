@@ -107,3 +107,31 @@ export interface CardDashboard {
     footerTitle:string;
     footerDescription:string;
 }
+
+
+export interface Perpanjangan {
+    id: number;
+    peminjaman_id: number;
+    anggota_id: number;
+    tanggal_perpanjangan: string; // ISO format date string, e.g., "2025-08-04"
+    tanggal_kembali_baru: string;
+    created_at: string;
+    updated_at: string;
+  
+    // Optional jika kamu eager load relasinya
+    peminjaman?: {
+      id: number;
+      kode_peminjaman: string;
+    };
+    anggota?: {
+      id: number;
+      nama_anggota: string;
+    };
+  }
+  
+
+export interface PerpanjanganIndexPageProps extends Record<string, any> {
+    perpanjangan: Perpanjangan[];
+}
+  
+

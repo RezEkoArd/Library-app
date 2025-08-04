@@ -8,7 +8,7 @@ class perpanjangan extends Model
 {
     protected $fillable = [
         'peminjaman_id',
-        'petugas_id',
+        'anggota_id',
         'tanggal_perpanjangan',
         'tanggal_kembali_baru',
     ];
@@ -17,4 +17,9 @@ class perpanjangan extends Model
     {
         return $this -> belongsTo(Peminjaman::class);
     }
+
+    public function anggota()
+    {
+        return $this -> belongsTo(Anggota::class);
+    }   
 }

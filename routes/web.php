@@ -5,7 +5,6 @@ use App\Http\Controllers\BukuController;
 use App\Http\Controllers\KategoriBukuController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\PerpanjanganController;
-use App\Models\perpanjangan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -33,6 +32,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Perpanjangan 
     Route::get('/peminjaman/{id}/perpanjangan', [PerpanjanganController::class, 'show'])->name('peminjaman.perpanjangan');
     Route::post('/peminjaman/{id}/perpanjangan', [PerpanjanganController::class, 'store'])->name('peminjaman.store');
+
+    // Perpanjangan Admin
+    Route::get('/perpanjangan-admin', [PerpanjanganController::class, 'indexAdmin'])->name('perpanjangan-admin');
 
     // Peminjaman Admin
     Route::get('/peminjaman-admin', [PeminjamanController::class, 'indexAdmin'])->name('peminjaman-admin');

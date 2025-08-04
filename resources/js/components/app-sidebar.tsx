@@ -17,7 +17,7 @@ export function AppSidebar() {
         { href: route('data-buku.admin'), title: 'Data Buku', icon: BookCopy }, // Lihat buku, tambah buku
         { href: route('anggota-admin.index'), title: 'Anggota', icon: User2 },  // Lihat Anggota, tambah Anggota
         { href: route('peminjaman-admin'), title: 'Peminjaman', icon: Handshake },  // Lihat Peminjaman, tambah Peminjaman
-        { href: route('dashboard'), title: 'Perpanjangan ', icon: Coins },
+        { href: route('perpanjangan-admin'), title: 'Perpanjangan ', icon: Coins },
         { href: route('dashboard'), title: 'Laporan', icon: ChartNoAxesCombined },
 
     ];

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Buku;
 use App\Models\Peminjaman;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
@@ -43,33 +44,40 @@ class PeminjamanController extends Controller
     }
 
     public function create() {
-        $books = Buku::all();
-        $anggotaId = auth()->guard('web')->user()->anggota->id;
-        
+        $user = auth()->guard('web')->user();
 
-        return Inertia::render('peminjaman/peminjaman-create', [
-            'anggota_id' => $anggotaId,
-            'books' => $books
-        ]);
+    // Cek apakah user sudah menjadi anggota
+    if (!$user->anggota) {
+        return redirect('/anggota')->with('warning', 'Silakan lengkapi data anggota terlebih dahulu.');
+    }
+
+    $anggotaId = $user->anggota->id;
+    $books = Buku::all();
+
+    return Inertia::render('peminjaman/peminjaman-create', [
+        'anggota_id' => $anggotaId,
+        'books' => $books,
+    ]);
     }
 
     public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'anggota_id' => 'required|exists:anggotas,id',
-            'tanggal_kembali_rencana' => 'required|date',
-            'catatan' => 'nullable|string',
-            'details' => 'required|array|min:1',
-            'details.*.buku_id' => 'required|exists:bukus,id',
-            'details.*.jumlah_pinjam' => 'required|integer|min:1',
-            'details.*.kondisi_pinjam' => 'required|string',
-            'details.*.catatan' => 'nullable|string',
-        ]);
-    
+{
+    $validated = $request->validate([
+        'anggota_id' => 'required|exists:anggotas,id',
+        'tanggal_kembali_rencana' => 'required|date',
+        'catatan' => 'nullable|string',
+        'details' => 'required|array|min:1',
+        'details.*.buku_id' => 'required|exists:bukus,id',
+        'details.*.jumlah_pinjam' => 'required|integer|min:1',
+        'details.*.kondisi_pinjam' => 'required|string',
+        'details.*.catatan' => 'nullable|string',
+    ]);
+
+    try {
         DB::transaction(function () use ($validated) {
             $totalBuku = collect($validated['details'])->sum('jumlah_pinjam');
             $nextId = (Peminjaman::max('id') ?? 0) + 1;
-    
+
             $peminjaman = Peminjaman::create([
                 'anggota_id' => $validated['anggota_id'],
                 'petugas_id' => auth()->guard('web')->user()->id,
@@ -82,18 +90,19 @@ class PeminjamanController extends Controller
                 'catatan' => $validated['catatan'],
                 'price' => 0,
             ]);
-    
+
             $detailData = [];
-    
+
             foreach ($validated['details'] as $detail) {
-                $buku = Buku::where('id', $detail['buku_id'])->lockForUpdate()->first(); // Pastikan tidak race condition
-    
+                $buku = Buku::where('id', $detail['buku_id'])->lockForUpdate()->first();
+
                 if ($buku->stok_tersedia < $detail['jumlah_pinjam']) {
-                    throw new \Exception("Stok buku '{$buku->judul_buku}' tidak mencukupi.");
+
+                    throw new Exception("Stok buku \"{$buku->judul_buku}\" tidak mencukupi.");
                 }
-    
+
                 $buku->decrement('stok_tersedia', $detail['jumlah_pinjam']);
-    
+
                 $detailData[] = [
                     'buku_id' => $buku->id,
                     'jumlah_pinjam' => $detail['jumlah_pinjam'],
@@ -102,13 +111,18 @@ class PeminjamanController extends Controller
                     'catatan' => $detail['catatan'] ?? '',
                 ];
             }
-    
+
             $peminjaman->details()->createMany($detailData);
         });
-    
+
         return redirect()->route('peminjaman')->with('success', 'Peminjaman berhasil disimpan.');
-       
+    } catch (Exception $e) {
+        return redirect('/peminjaman/create')
+            ->withInput()
+            ->with('errorMessage', $e->getMessage() ?? 'Terjadi kesalahan saat menyimpan.');
     }
+}
+
 
 
     public function edit(string $id) {

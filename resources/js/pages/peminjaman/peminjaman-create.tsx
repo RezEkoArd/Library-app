@@ -1,5 +1,5 @@
 import AppLayout from '@/layouts/app-layout';
-import { type BreadcrumbItem } from '@/types';
+import { FlashMessage, type BreadcrumbItem } from '@/types';
 import { Head, useForm, usePage } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -11,7 +11,7 @@ import {
   } from "@/components/ui/popover"
   import {  ChevronDownIcon, Trash } from 'lucide-react';
   import { Calendar } from '@/components/ui/calendar';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Book } from '../data-buku/book-table/column';
 import { Textarea } from '@/components/ui/textarea';
@@ -28,6 +28,7 @@ import {
     Card,
     CardContent,
   } from "@/components/ui/card"
+import { toast } from 'sonner';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -41,6 +42,7 @@ interface PeminjamanFormProps
     books: Book[];
     anggotaId: string;
     [key: string]: any; // ❗️izin semua property string
+    flash: FlashMessage;
 }
 
 type Detail = {
@@ -55,7 +57,7 @@ type Detail = {
 
 export default function PeminjamanIndex() {
 
-    const { anggota_id, books } = usePage<PeminjamanFormProps>().props;
+    const { anggota_id, books, flash } = usePage<PeminjamanFormProps>().props;
 
     const [date, setDate] = useState<Date | undefined>(new Date())
     const [open, setOpen] = useState(false)
@@ -69,6 +71,18 @@ export default function PeminjamanIndex() {
         { buku_id: '', jumlah_pinjam: 1, kondisi_pinjam: 'baik', catatan: '' }
         ]
     });
+
+
+  useEffect(() => {
+    if (flash.success) {    
+      toast.success(flash.success, { duration: 3000 }); 
+    }
+
+    if (flash.errorMessage) {
+      toast.error(flash.errorMessage, { duration: 3000 });
+    }
+  }, [flash]);
+
 
 
 
@@ -211,6 +225,7 @@ export default function PeminjamanIndex() {
                                         onChange={(e) => handleDetailChange(index, 'jumlah_pinjam', parseInt(e.target.value))}
                                         className="border rounded px-2 py-1 w-full"
                                     />
+                                    {flash.errorMessage && <p className="text-red-600">{flash.errorMessage}</p>}
                                 </div>
 
                                 <div>

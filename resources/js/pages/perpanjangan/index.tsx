@@ -27,16 +27,17 @@ export interface Peminjaman {
 }
 
 export interface PagePropsPerpanjangan extends Record<string, any> {
-    flash: FlashMessage;
     peminjaman: Peminjaman;
-    petugasId: number;
+
 }
 
+
 export default function PerpanjanganForm() {
-    const { peminjaman,petugasId,  flash } = usePage<PagePropsPerpanjangan>().props;
+    const { peminjaman } = usePage<PagePropsPerpanjangan>().props;
 
     const [date, setDate] = useState<Date | null>(null);
     const [open, setOpen] = useState(false);
+
 
     // validasi tanggal
     const [customError, setCustomError] = useState<string | null>(null);
@@ -45,7 +46,7 @@ export default function PerpanjanganForm() {
     const { data, setData, post, reset, processing, errors } = useForm({
         tanggal_kembali_baru: '',
     });
-    // console.log(peminjaman)
+
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();

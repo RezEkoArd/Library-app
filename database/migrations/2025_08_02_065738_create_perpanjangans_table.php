@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('perpanjangans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('peminjaman_id')->constrained('peminjamen')->onDelete('cascade');
-            $table->foreignId('petugas_id')->constarined('users');
+            $table->foreignId('anggota_id')->constrained('anggotas');
             $table->date('tanggal_perpanjangan');
             $table->date('tanggal_kembali_baru');   
             $table->timestamps();

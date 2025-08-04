@@ -1,7 +1,7 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import {  Delete, Edit, MoreHorizontal,} from "lucide-react"
+import {  Delete, Edit, Eye, MoreHorizontal,} from "lucide-react"
  
 import { Button } from "@/components/ui/button"
 import {
@@ -166,6 +166,14 @@ export const columns: ColumnDef<Peminjaman>[] = [
                 <span>
                   <Delete className="ml-2 h-4 w-4" />
                 </span>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="flex items-center justify-between" asChild>
+                <Link href={`/peminjaman/${peminjaman.id}/detail`}>
+                  Detail
+                  <span>
+                  <Eye className="ml-2 h-4 w-4" />
+                </span>
+                </Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>  

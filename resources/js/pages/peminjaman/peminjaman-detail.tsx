@@ -32,9 +32,7 @@ const PeminjamanDetail = () => {
                             <Button className="cursor-pointer">Perpanjang</Button>
                           </Link>
                         )}
-                        <Link href="/peminjaman" >
-                          <Button className="cursor-pointer" >Back</Button>
-                        </Link>
+                             <Button className="cursor-pointer" onClick={() => window.history.back()}>Back</Button>
                       </div>
                     </div>
                     
@@ -42,10 +40,6 @@ const PeminjamanDetail = () => {
                       <div className="flex items-center">
                         <span className="font-semibold text-gray-600 mr-2">Nama Anggota:</span>
                         <span className="text-gray-800">{peminjaman.anggota?.nama_anggota}</span>
-                      </div>
-                      <div className="flex items-center">
-                        <span className="font-semibold text-gray-600 mr-2">Petugas:</span>
-                        <span className="text-gray-800">{peminjaman.user?.name}</span>
                       </div>
                     </div>
                   </div>
