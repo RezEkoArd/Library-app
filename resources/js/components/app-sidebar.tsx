@@ -18,7 +18,7 @@ export function AppSidebar() {
         { href: route('anggota-admin.index'), title: 'Anggota', icon: User2 },  // Lihat Anggota, tambah Anggota
         { href: route('peminjaman-admin'), title: 'Peminjaman', icon: Handshake },  // Lihat Peminjaman, tambah Peminjaman
         { href: route('perpanjangan-admin'), title: 'Perpanjangan ', icon: Coins },
-        { href: route('dashboard'), title: 'Laporan', icon: ChartNoAxesCombined },
+        { href: route('report'), title: 'Laporan', icon: ChartNoAxesCombined },
 
     ];
     const guruLink = [

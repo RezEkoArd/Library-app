@@ -108,7 +108,6 @@ export interface CardDashboard {
     footerDescription:string;
 }
 
-
 export interface Perpanjangan {
     id: number;
     peminjaman_id: number;

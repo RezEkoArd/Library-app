@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\BukuController;
+use App\Http\Controllers\ExcelExportController;
 use App\Http\Controllers\KategoriBukuController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\PerpanjanganController;
@@ -28,6 +29,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
 
+    // Export Excel Report 
+    Route::get('/report/export', [ExcelExportController::class, 'exportPeminjamanLaporan'])->name('report.export.get');
+    Route::post('/report/export', [ExcelExportController::class, 'exportPeminjamanLaporan'])->name('report.export.post');
+
+    // Halaman Report Admin
+    Route::get('/report', [ExcelExportController::class, 'index'])->name('report');
 
     // Perpanjangan 
     Route::get('/peminjaman/{id}/perpanjangan', [PerpanjanganController::class, 'show'])->name('peminjaman.perpanjangan');
