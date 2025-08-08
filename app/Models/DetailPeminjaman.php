@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class DetailPeminjaman extends Model
 {
-    protected $table = 'detail_peminjamen'; // ⬅️ tambahkan ini
-
+    protected $table = 'detail_peminjamen'; 
     protected $fillable = [
         'peminjaman_id',
         'buku_id',
@@ -27,4 +26,6 @@ class DetailPeminjaman extends Model
     {
         return $this->belongsTo(Buku::class);
     }
+
+    
 };

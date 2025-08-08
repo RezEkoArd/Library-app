@@ -21,7 +21,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function DataBukuIndex() {
     const {flash, anggota} = usePage<PagePropsAnggota>().props;
-
+    
 
   useEffect(() => {
     if (flash.success) {    
@@ -29,7 +29,7 @@ export default function DataBukuIndex() {
     }
 
     if (flash.errorMessage) {
-      toast.error(flash.errorMessage, { duration: 3000 });
+        toast.error(flash.errorMessage, { duration: 3000 });
     }
   }, [flash]);
 
