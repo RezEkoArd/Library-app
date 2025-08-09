@@ -11,8 +11,8 @@ use App\Models\DetailPeminjaman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon as SupportCarbon;
 use Inertia\Inertia;
-use Illuminate\Support\Facades\Validator;
-
+use App\Models\Perpanjangan;
+use App\Exports\ReportPerpanjanganExport;
 
 class ExcelExportController extends Controller
 {
@@ -71,6 +71,30 @@ class ExcelExportController extends Controller
         $exporter = new DetailPeminjamanReportExport($detailData, $month, $year);
 
         return $exporter->generate();
+    }
+
+    public function exportBukuPerpanjanganYangDipinjam(Request $request)
+    {
+        // Validasi input pengguna
+    $month = (int) $request->query('month', date('n'));
+    $year = (int) $request->query('year', date('Y'));
+
+    // Query dengan filter berdasarkan tanggal_perpanjangan, bukan created_at
+    $perpanjangan = Perpanjangan::with([
+        'peminjaman',
+        'anggota'
+    ])
+    ->whereYear('tanggal_perpanjangan', $year)
+    ->whereMonth('tanggal_perpanjangan', $month)
+    ->get();
+
+    // Jika ingin debug, uncomment baris berikut:
+    // dd($perpanjangan);
+
+    // Generate Excel
+    $exporter = new ReportPerpanjanganExport($perpanjangan, $month, $year);
+
+    return $exporter->generate();
     }
 }
 

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class perpanjangan extends Model
+class Perpanjangan extends Model
 {
     protected $fillable = [
         'peminjaman_id',

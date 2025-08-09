@@ -5,6 +5,7 @@ import CardReportPeminjaman from '@/components/card-report-peminjaman';
 import { useEffect } from 'react';
 import { toast } from 'sonner';
 import CardReportDetail from '@/components/card-report-detail';
+import CardReportPerpanjangan from '@/components/card-report-perpanjangan';
 
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -51,6 +52,7 @@ export default function Index() {
                         <div className='flex flex-wrap gap-4'>
                             <CardReportPeminjaman />
                             <CardReportDetail />
+                            <CardReportPerpanjangan />
                         </div>
                 </div>
             </div>

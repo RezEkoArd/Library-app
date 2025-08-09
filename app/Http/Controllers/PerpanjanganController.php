@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Peminjaman;
-use App\Models\perpanjangan;
+use App\Models\Perpanjangan;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\User;
@@ -44,7 +44,6 @@ class PerpanjanganController extends Controller
     $anggota = $user->anggota->id;
     $peminjaman = Peminjaman::findOrFail($id);
 
-    // dd($anggota);
     // Simpan data perpanjangan
     Perpanjangan::create([
         'peminjaman_id' => $peminjaman->id,

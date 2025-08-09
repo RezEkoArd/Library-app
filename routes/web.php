@@ -36,6 +36,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/report-detail/export', [ExcelExportController::class, 'exportBukuDetailYangDipinjam'])->name('report.detail.get');
     Route::post('/report-detail/export', [ExcelExportController::class, 'exportBukuDetailYangDipinjam'])->name('report.detail.post');
 
+    Route::get('/report-perpanjangan/export', [ExcelExportController::class, 'exportBukuPerpanjanganYangDipinjam'])->name('report.perpanjangan.get');
+    Route::post('/report-perpanjangan/export', [ExcelExportController::class, 'exportBukuPerpanjanganYangDipinjam'])->name('report.perpanjangan.post');
+
     // Halaman Report Admin
     Route::get('/report', [ExcelExportController::class, 'index'])->name('report');
 
