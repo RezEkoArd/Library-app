@@ -6,15 +6,10 @@ import { Edit, MoreHorizontal } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
     Sheet,
-    SheetClose,
-    SheetContent,
-    SheetDescription,
-    SheetFooter,
-    SheetHeader,
-    SheetTitle,
     SheetTrigger,
   } from "@/components/ui/sheet"
 import EditAnggota from "@/components/anggota-edit"
+import { Badge } from "@/components/ui/badge"
 
 
 export interface Anggota {
@@ -54,7 +49,20 @@ export const columns: ColumnDef<Anggota>[] = [
   {
     accessorKey: "status",
     header: "Status Keanggotaan",
-    cell: ({row}) => row.original.status == 1 ? "Aktif" : "Tidak Aktif",
+    cell: ({row}) => {
+      const status = row.original.status;
+      let variant: "default" | "secondary" | "destructive" | "outline" | "aktif" | "tidakAktif"  = "secondary";
+
+      if (status === 1) {
+        variant = "aktif";
+      } else if (status === 0) {
+        variant = "tidakAktif";
+      }
+
+      return (
+        <Badge variant={variant}>{status === 1 ? "Aktif" : "Tidak Aktif"}</Badge>
+      );
+    }
   },
   {
     accessorKey: "alamat",

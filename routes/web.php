@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\BukuController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExcelExportController;
 use App\Http\Controllers\KategoriBukuController;
 use App\Http\Controllers\PeminjamanController;
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('welcome');
+    return Inertia::render('auth/login');
 })->name('home');
 
 // Dashboard
@@ -25,9 +26,8 @@ Route::get('/dashboard', function() {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
-    })->name('dashboard');
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
 
     // Export Excel Report 
     Route::get('/report/export', [ExcelExportController::class, 'exportPeminjamanLaporan'])->name('report.export.get');

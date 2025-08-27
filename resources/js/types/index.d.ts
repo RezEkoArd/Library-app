@@ -133,4 +133,18 @@ export interface PerpanjanganIndexPageProps extends Record<string, any> {
     perpanjangan: Perpanjangan[];
 }
   
+export interface pagePropsDashboard extends Record<string, any>{
+    flash: FlashMessage;
+    jumlahbuku: string;
+    anggota: string;
+    peminjaman: string;
+    pengembalian: string;
+    chartData: ChartDataItem;  
+}
 
+export interface DashboardByRole extends Record<string, any>{
+    jumlahbuku: string;
+    anggota: string;
+    peminjaman: string;
+    pengembalian: string;
+}

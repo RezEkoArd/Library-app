@@ -1,6 +1,6 @@
 import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
 import AppLayout from '@/layouts/app-layout';
-import { SharedData, type BreadcrumbItem } from '@/types';
+import { pagePropsDashboard, SharedData, type BreadcrumbItem } from '@/types';
 import { Head, usePage } from '@inertiajs/react';
 import DashboardAdmin from './dashboard/admin/dashboardAdmin';
 import DashboardGuru from './dashboard/guru/dashboardGuru';
@@ -14,6 +14,8 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function Dashboard() {
+    const {jumlahbuku, anggota, peminjaman, pengembalian} = usePage<pagePropsDashboard>().props;
+
     // Amnbil data auth dari props yang di shared
     const { auth } = usePage<SharedData>().props;
     const userRole = auth.user.role;
@@ -22,11 +24,11 @@ export default function Dashboard() {
     const renderByRole = () => {
         switch (userRole) {
             case 'admin' :
-                return <DashboardAdmin />;
+                return <DashboardAdmin peminjaman={peminjaman} pengembalian={pengembalian} anggota={anggota} jumlahbuku={jumlahbuku}/>;
             case 'guru' :
-                return <DashboardGuru />;
+                return <DashboardGuru peminjaman={peminjaman} pengembalian={pengembalian} anggota={anggota} jumlahbuku={jumlahbuku}/>;
             case 'siswa' : 
-                return <DashboardSiswa />;
+                return <DashboardSiswa peminjaman={peminjaman} pengembalian={pengembalian} anggota={anggota} jumlahbuku={jumlahbuku}/>;
             default: 
                 return (
                     <div className='text-center py-12'>

@@ -3,47 +3,48 @@ import { CardDashboard } from '@/components/card-dashboard';
 import { DashboardPieChart } from '@/components/dashboard-piechart';
 import DashboardAreaChart from '@/components/dashboard-areachart';
 import DashboardCardList from '@/components/dashboard-cardlist';
+import { DashboardByRole } from '@/types';
 
 
 
-export default function DashboardSiswa() {
+export default function DashboardSiswa({ jumlahbuku, anggota, peminjaman, pengembalian }: DashboardByRole ) {
     return (
         <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4 overflow-x-auto">
             <div className="grid auto-rows-min gap-4 md:grid-cols-2 lg:grid-cols-4">
                 <div className="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                     <CardDashboard
-                        cardTitle="1000"
+                        cardTitle={jumlahbuku}
                         cardDescription="Total Koleksi Buku"
                         cardAction={BookCopy} 
-                        footerTitle="+15 buku baru"
-                        footerDescription="ditambahkan bulan ini"
+                        footerTitle="Informasi"
+                        footerDescription="Update koleksi buku"
                     />
                 </div>
                 <div className="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                     <CardDashboard
-                        cardTitle="100"
+                        cardTitle={anggota}
                         cardDescription="Jumlah Anggota Aktif"
                         cardAction={Users2} 
-                        footerTitle="+5 anggota baru"
-                        footerDescription="bergabung minggu ini"
+                        footerTitle="Informasi"
+                        footerDescription="Anggota terdaftar"
                     />
                 </div>
                 <div className="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                 <CardDashboard
-                        cardTitle="30"
+                        cardTitle={peminjaman}
                         cardDescription="Buku Sedang Dipinjam"
                         cardAction={FolderInput} 
-                        footerTitle="+3 dari kemarin"
-                        footerDescription="Total buku yang beredar"
+                        footerTitle="Informasi"
+                        footerDescription="Data peminjaman aktif"
                     />
                 </div>
                 <div className="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                 <CardDashboard
-                        cardTitle="12"
+                        cardTitle={pengembalian}
                         cardDescription="Dikembalikan"
                         cardAction={BookDown} 
-                        footerTitle="1 buku terlambat"
-                        footerDescription="dari total pengembalian hari ini"
+                        footerTitle="Informasi"
+                        footerDescription="Data pengembalian"
                     />
                 </div>
             </div>
